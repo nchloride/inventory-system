@@ -1,7 +1,9 @@
+import { BranchTable } from "../components/Branch/Table"
+
 export const Branch = ()=>{
     return (
         <div>
-            <h1>Branch Page</h1>
+            <BranchTable/>
         </div>
     )
 }
