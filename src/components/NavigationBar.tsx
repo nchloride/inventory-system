@@ -35,7 +35,7 @@ export const NavigationBar = () => {
                 const isActive:string = router.pathname===`/${navLink.url}` ? "activeLink" : "";
                 return(
                     <li key={index} className={isActive}>
-                        <Link href={`${navLink.url}`}>
+                        <Link href={`/${navLink.url}`}>
                             <a>{navLink.name}</a>
                         </Link>
                     </li>
