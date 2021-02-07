@@ -6,6 +6,7 @@ import nextConnect from "next-connect";
 
 
 const stores = db.get("stores");
+let storesCache = [];
 export default nextConnect<NextApiRequest,NextApiResponse>()
     .post( async (req,res)=>{
         try {
@@ -13,11 +14,22 @@ export default nextConnect<NextApiRequest,NextApiResponse>()
             const validatedData = await storeSchema.validateAsync(req.body);
             stores.insert(validatedData);
             res.json({
-                message:"Store Added"
+                message:"Store Added",
+                validatedData
             })
         } catch (error) {
             res.json({
                 error
             })
+        }
+    })
+    .get(async(req,res)=>{
+        if(storesCache === []){
+            const storesArray:object[] = await stores.find({});
+            res.json(storesArray);
+            storesCache = storesArray;
+        }
+        else{
+            res.json(storesCache);
         }
     })

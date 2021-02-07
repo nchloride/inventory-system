@@ -1,46 +1,16 @@
-import { BranchTable } from "../components/Branch/Table";
+import React, { useState } from "react";
+import { BranchTable } from "../components/Branch/BranchTable";
 import {useForm} from "react-hook-form";
+import BranchForm from "../components/Branch/BranchForm";
 
-export const Branch = ()=>{
-    const {handleSubmit,errors,register} = useForm<FormData>();
-    interface IData {
-        name:string,
-        location:string,
-        branch:string,
-    }
-    const onSubmit = async (data:IData) =>{
-        console.log(data);
-        const response = await fetch("/api/stores",{
-            method:"POST",
-            mode:"cors",
-            body:JSON.stringify(data),
-        })
-        const result = await response.json();
-        console.log(result);
-        
-    }
+export const Branch:React.FC = () => {
+    const [refreshTable,setRefreshTable]  = useState<boolean>(false);
+
+
     return (
         <div>
-            <BranchTable/>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <input name="name"
-                 type="text" 
-                 ref={register({required:true})}
-                 />
-                <input name="location"
-                 type="text" 
-                 ref={register({required:true})}
-                 />
-                <input name="branch"
-                 type="text" 
-                 ref={register({required:true})}
-                 />
-                <input name="employeeCount"
-                 type="number" 
-                 ref={register({required:true})}
-                 />
-                 <input type="submit" value="Add store"/>
-            </form>
+            <BranchTable refreshTable ={refreshTable}/>
+            <BranchForm setRefreshTable= {setRefreshTable}/>
         </div>
     )
 }
