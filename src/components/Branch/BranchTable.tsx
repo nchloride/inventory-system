@@ -1,8 +1,6 @@
 import {useEffect, useState} from "react";
-
-
 export const BranchTable = ({refreshTable}) =>{
-    const [store,setStores] = useState<object[]>([]);
+    const [stores,setStores] = useState([]);
     useEffect(() => {
         const getStores = async()=>{
             const res = await fetch("/api/stores");
@@ -15,8 +13,22 @@ export const BranchTable = ({refreshTable}) =>{
     }, [refreshTable])
     return (
         <table>
-            <thead></thead>
-            <tbody></tbody>
+            <thead>
+                <tr>
+                    <th>Branch</th>
+                    <th>Location</th>
+                    <th>Employee Count</th>
+                </tr>
+            </thead>
+            <tbody>
+                {stores?.map((store)=>(
+                    <tr>
+                        <td>{store?.branch}</td>
+                        <td>{store?.location}</td>
+                        <td>{store?.employeeCount}</td>
+                    </tr>
+                ))}
+            </tbody>
         </table>
     )
 }

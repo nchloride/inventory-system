@@ -28,10 +28,6 @@ export const BranchForm  = ({setRefreshTable})=>{
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
-            <input name="name"
-            type="text" 
-            ref={register({required:true})}
-            />
             <input name="location"
             type="text" 
             ref={register({required:true})}
