@@ -1,6 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import db from "../../utils/database";
-import storeSchema from "../../utils/Auth/storesAuth";
+import db from "../../../utils/database";
+import storeSchema from "../../../utils/Auth/storesAuth";
 import {NextApiRequest,NextApiResponse} from "next";
 import nextConnect from "next-connect";
 
@@ -25,5 +25,4 @@ export default nextConnect<NextApiRequest,NextApiResponse>()
     .get(async(req,res)=>{
         const storesArray:object[] = await stores.find({});
         res.json(storesArray);
-    })
-
+    });

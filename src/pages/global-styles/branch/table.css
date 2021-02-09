@@ -6,11 +6,15 @@ table{
     table-layout: fixed;
     
 }
+th{
+    background-color: rgb(53, 53, 53);
+    color: white;
+}
 td,th{
     padding: 10px;
     border: none;
     width: 100%;
-    
+    text-align: center;
 }
 thead tr,tbody tr {
     display: table;

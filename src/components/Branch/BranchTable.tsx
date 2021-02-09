@@ -1,5 +1,7 @@
 import {useEffect, useState} from "react";
-export const BranchTable = ({refreshTable}) =>{
+
+import StoreHandler from "../../utils/storesHandler";
+export const BranchTable = ({refreshTable,setRefreshTable}) =>{
     const [stores,setStores] = useState([]);
     useEffect(() => {
         const getStores = async()=>{
@@ -10,7 +12,12 @@ export const BranchTable = ({refreshTable}) =>{
             
         };
         getStores();
-    }, [refreshTable])
+    }, [refreshTable]);
+    const handleDelete = async(_id) =>{
+       const response = await StoreHandler.deleteStore(_id);
+       alert(response.message);
+        setRefreshTable(!refreshTable);
+    }
     return (
         <table>
             <thead>
@@ -18,24 +25,30 @@ export const BranchTable = ({refreshTable}) =>{
                     <th>Branch</th>
                     <th>Location</th>
                     <th>Employee Count</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
                 {stores?.map((store)=>(
-                    <tr>
+                    <tr key={store?._id}>
                         <td>{store?.branch}</td>
                         <td>{store?.location}</td>
                         <td>{store?.employeeCount}</td>
+                        <td>
+                            <button onClick={()=>handleDelete(store?._id)} >Delete</button>
+                            <button>Update</button>
+                        </td>
                     </tr>
                 ))}
             </tbody>
         </table>
     )
 }
-BranchTable.getInitialProps = ({refreshTable}) =>{
+BranchTable.getInitialProps = ({refreshTable,setRefreshTable}) =>{
     return{
         props:{
-            refreshTable
+            refreshTable,
+            setRefreshTable
         }
     }
 }

@@ -8,7 +8,7 @@ export const Branch:React.FC = () => {
 
     return (
         <div className="branch">
-            <BranchTable refreshTable ={refreshTable}/>
+            <BranchTable refreshTable ={refreshTable}  setRefreshTable= {setRefreshTable}/>
             <BranchForm setRefreshTable= {setRefreshTable}/>
         </div>
     )
