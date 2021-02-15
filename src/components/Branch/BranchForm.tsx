@@ -2,7 +2,7 @@ import {useForm} from "react-hook-form";
 import React from "react";
 
 export const BranchForm  = ({setRefreshTable})=>{
-    const {handleSubmit,register} = useForm<FormData>();
+    const {handleSubmit,register,reset} = useForm<FormData>();
     interface IData {
         name:string,
         location:string,
@@ -18,8 +18,8 @@ export const BranchForm  = ({setRefreshTable})=>{
             });
             const result = await response.json();
             console.log(result);
-            
-            setRefreshTable(prevData=>!prevData);
+            reset();
+            setRefreshTable((prevData:boolean)=>!prevData);
         }
         catch(error){
             console.log(error);
@@ -27,18 +27,16 @@ export const BranchForm  = ({setRefreshTable})=>{
     }
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <input name="location"
-            type="text" 
-            ref={register({required:true})}
-            />
+        <form onSubmit={handleSubmit(onSubmit)} className="input__form branch__form">
             <input name="branch"
             type="text" 
             ref={register({required:true})}
+            placeholder="Enter branch name"
             />
-            <input name="employeeCount"
-            type="number" 
+            <input name="location"
+            type="text" 
             ref={register({required:true})}
+            placeholder="Enter branch location"
             />
             <input type="submit" value="Add store"/>
         </form>

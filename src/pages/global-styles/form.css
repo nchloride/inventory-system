@@ -1,0 +1,21 @@
+.input__form{
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    height: 40%;    
+    align-items: center;
+    justify-content: center;
+    background-color: whitesmoke;
+}
+.input__form>input,select{
+    margin:5px;
+    height: 50px;
+    width: 500px;
+    font-size: 100%;
+}
+.input__form>input[type=submit]{
+    width: 500px;
+    height: 50px;
+    background-color: rgba(29, 87, 248, 0.993);
+    color: whitesmoke;
+}

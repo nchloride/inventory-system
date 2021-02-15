@@ -1,22 +1,24 @@
 import {useEffect, useState} from "react";
-
 import StoreHandler from "../../utils/storesHandler";
+import BranchTableRow from "./BranchTableRow";
 export const BranchTable = ({refreshTable,setRefreshTable}) =>{
     const [stores,setStores] = useState([]);
+
     useEffect(() => {
-        const getStores = async()=>{
-            const res = await fetch("/api/stores");
-            const data = await res.json();
-            console.log(data);
+        StoreHandler.getStores().then((data):void=>{
             setStores(data);
-            
-        };
-        getStores();
+        })
     }, [refreshTable]);
-    const handleDelete = async(_id) =>{
-       const response = await StoreHandler.deleteStore(_id);
-       alert(response.message);
-        setRefreshTable(!refreshTable);
+    const handleDelete = (_id,branch:string):void =>{
+        if(confirm("Are you sure you want to delete this branch?"))
+            if(prompt(`Type "${branch}" to delete this store`) === branch)
+                StoreHandler.deleteStore(_id).then((data):void=>{
+                    alert(data.message);
+                    setRefreshTable(!refreshTable);    
+                });
+    }
+    const handleUpdate = ():void=>{
+        
     }
     return (
         <table>
@@ -30,27 +32,12 @@ export const BranchTable = ({refreshTable,setRefreshTable}) =>{
             </thead>
             <tbody>
                 {stores?.map((store)=>(
-                    <tr key={store?._id}>
-                        <td>{store?.branch}</td>
-                        <td>{store?.location}</td>
-                        <td>{store?.employeeCount}</td>
-                        <td>
-                            <button onClick={()=>handleDelete(store?._id)} >Delete</button>
-                            <button>Update</button>
-                        </td>
-                    </tr>
+                    <BranchTableRow store={store} handleDelete={handleDelete} key={store._id}/>
                 ))}
             </tbody>
         </table>
     )
 }
-BranchTable.getInitialProps = ({refreshTable,setRefreshTable}) =>{
-    return{
-        props:{
-            refreshTable,
-            setRefreshTable
-        }
-    }
-}
+
 
   export default BranchTable;

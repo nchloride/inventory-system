@@ -9,5 +9,8 @@ class Stores{
         return data;
         
     }
+    public async getStores(){
+        return  await (await fetch(`${this.storeAPIEndpoint}`)).json();
+    }
 }
 export default new Stores;
