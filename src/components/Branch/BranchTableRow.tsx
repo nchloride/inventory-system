@@ -1,12 +1,14 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState,useEffect } from 'react';
 import employeeHandler from '../../utils/employeeHandler';
-import UpdateForm from './UpdateForm'
+import UpdateForm from './UpdateForm';
+
 interface IStore {
     _id:string;
     branch:string;
     location:string;
     employeeCount:number;
 }
+
 const BranchTableRow = ({store,handleDelete}) => {
     const {_id,branch,location}:IStore = store;
     const [openUpdateForm,setOpenUpdateForm] = useState<boolean>(false);
@@ -36,7 +38,8 @@ const BranchTableRow = ({store,handleDelete}) => {
                     <button onClick={updateOnClick}>Update</button>
                 </td>
             </tr>
-            {openUpdateForm && <UpdateForm store={store} setOpenUpdateForm ={setOpenUpdateForm}/>}
+            {openUpdateForm && <UpdateForm store={store} setOpenUpdateForm ={setOpenUpdateForm} openUpdateForm={openUpdateForm}/>}
+    
         </>
     )
 }

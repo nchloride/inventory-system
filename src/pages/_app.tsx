@@ -12,6 +12,8 @@ import "./global-styles/branch/index.css";
 import "./global-styles/branch/form.css";
 //Employees Styles
 import "./global-styles/employees/index.css";
+//Modal
+import "./global-styles/modal.css"
 function MyApp({ Component, pageProps }) {
  
   return (

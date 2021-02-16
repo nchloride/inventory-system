@@ -25,4 +25,16 @@ export default nextConnect<NextApiRequest,NextApiResponse>()
     .get(async(req,res)=>{
         const storesArray:object[] = await stores.find({});
         res.json(storesArray);
-    });
+    })
+    .patch(async(req,res)=>{
+        const {branch,location,name,_id} = req.body;
+        try {
+            await stores.findOneAndUpdate({_id},{branch,location,name});
+            res.json({
+                message:"Store updated"
+            })
+        } catch (error) {
+            res.json(error);
+        }
+     
+    })

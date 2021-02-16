@@ -1,10 +1,12 @@
 import React from 'react'
 
 interface IEmployee{
-    name:string,
-    branch:string,
-    rate:number,
-    address:string
+    employee:{
+        name:string,
+        branch:string,
+        rate:number,
+        address:string
+    }
 }
 const EmployeeTableRow = ({employee}:IEmployee) => {
     const {name,address,branch,rate} = employee;
@@ -14,6 +16,10 @@ const EmployeeTableRow = ({employee}:IEmployee) => {
             <td>{address}</td>
             <td>{branch}</td>
             <td>{rate}</td>
+            <td>
+                <button>Delete</button>
+                <button>Update</button>
+            </td>
         </tr>
     )
 }

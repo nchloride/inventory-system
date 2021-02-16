@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { BranchTable } from "../components/Branch/BranchTable";
 import {useForm} from "react-hook-form";
 import BranchForm from "../components/Branch/BranchForm";
+import { useRefreshTable } from "../components/customHooks/useRefreshTable";
 export const Branch:React.FC = () => {
-    const [refreshTable,setRefreshTable]  = useState<boolean>(false);
+    const [refreshTable,setRefreshTable]  = useRefreshTable(false);
  
 
     return (

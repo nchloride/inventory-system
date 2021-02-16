@@ -2,7 +2,7 @@ import React, { useState,useEffect } from 'react'
 import EmployeeHandler from '../../utils/employeeHandler';
 import EmployeeTableRow from './EmployeeTableRow';
 
-const EmployeeTable = () => {
+const EmployeeTable = ({refresh}) => {
     const [employees,setEmployees] = useState([]);
     useEffect(() => {
         (async()=>{
@@ -10,7 +10,7 @@ const EmployeeTable = () => {
              setEmployees(employeeData);
             
         })()
-    }, [])
+    }, [refresh])
     return (
         <table>
             <thead>
@@ -19,6 +19,7 @@ const EmployeeTable = () => {
                     <th>Address</th>
                     <th>Branch</th>
                     <th>Rate</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody> 

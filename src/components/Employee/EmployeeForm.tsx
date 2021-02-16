@@ -3,7 +3,7 @@ import {useForm} from "react-hook-form";
 import EmployeeHandler from '../../utils/employeeHandler';
 import Stores from "../../utils/storesHandler"
 // name,dateHired,address,storeBranch,rate
-const EmployeeForm = () => {
+const EmployeeForm = ({setRefresh}) => {
     const {errors,handleSubmit,register,reset} = useForm();
     const [stores,setStores] = useState([]);
     const [inputError,setInputError] = useState({
@@ -25,6 +25,7 @@ const EmployeeForm = () => {
             if(data.added){
                 reset();
                 setInputError({alreadyExist:false});
+                setRefresh(prevBool=>!prevBool);
             }
             else{
                 setInputError({alreadyExist:true});

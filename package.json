@@ -15,7 +15,8 @@
     "node-fetch": "^2.6.1",
     "react": "17.0.1",
     "react-dom": "17.0.1",
-    "react-hook-form": "^6.15.1"
+    "react-hook-form": "^6.15.1",
+    "react-modal": "^3.12.1"
   },
   "devDependencies": {
     "@types/node": "^14.14.22",
