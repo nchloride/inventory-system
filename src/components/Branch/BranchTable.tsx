@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import StoreHandler from "../../utils/storesHandler";
 import BranchTableRow from "./BranchTableRow";
+
 export const BranchTable = ({refreshTable,setRefreshTable}) =>{
     const [stores,setStores] = useState([]);
 
@@ -17,9 +18,7 @@ export const BranchTable = ({refreshTable,setRefreshTable}) =>{
                     setRefreshTable(!refreshTable);    
                 });
     }
-    const handleUpdate = ():void=>{
-        
-    }
+   
     return (
         <table>
             <thead>
@@ -32,7 +31,7 @@ export const BranchTable = ({refreshTable,setRefreshTable}) =>{
             </thead>
             <tbody>
                 {stores?.map((store)=>(
-                    <BranchTableRow store={store} handleDelete={handleDelete} key={store._id}/>
+                    <BranchTableRow store={store} refreshTable={refreshTable}setRefreshTable={setRefreshTable} handleDelete={handleDelete}  key={store._id}/>
                 ))}
             </tbody>
         </table>

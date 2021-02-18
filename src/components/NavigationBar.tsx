@@ -32,10 +32,10 @@ export const NavigationBar = () => {
     return (
         <ul className="side_navigation_bar">
             {navLinks.map((navLink,index)=>{
-                const isActive:string = router.pathname===`/${navLink.url}` ? "activeLink" : "";
+                const isActive:string = router.pathname===`/admin/${navLink.url}` ? "activeLink" : "";
                 return(
                     <li key={index} className={isActive}>
-                        <Link href={`/${navLink.url}`}>
+                        <Link href={`/admin/${navLink.url}`}>
                             <a>{navLink.name}</a>
                         </Link>
                     </li>

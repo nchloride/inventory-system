@@ -6,6 +6,7 @@
     align-items: center;
     justify-content: center;
     background-color: whitesmoke;
+
 }
 .input__form>input,select{
     margin:5px;

@@ -1,14 +1,14 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState,useEffect,useContext } from 'react'
 import EmployeeHandler from '../../utils/employeeHandler';
 import EmployeeTableRow from './EmployeeTableRow';
 
 const EmployeeTable = ({refresh}) => {
     const [employees,setEmployees] = useState([]);
+
     useEffect(() => {
         (async()=>{
             const employeeData = await EmployeeHandler.getEmployees();
              setEmployees(employeeData);
-            
         })()
     }, [refresh])
     return (
