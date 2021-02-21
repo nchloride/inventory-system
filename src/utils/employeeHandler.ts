@@ -22,5 +22,17 @@ export default new class Employee{
             return error
         }
     }
+    public async deleteEmployee(id:string){
+        try {
+            const res = await fetch(`${this.employeeEndpoint}${id}`,{
+                method:"DELETE",
+                mode:"cors"
+            });
+            const data = await res.json();
+            return data;
+        } catch (error) {
+            return error;
+        }
+    }
 
 } 

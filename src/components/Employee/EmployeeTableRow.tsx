@@ -2,14 +2,16 @@ import React from 'react'
 
 interface IEmployee{
     employee:{
+        _id:string,
         name:string,
         branch:string,
         rate:number,
         address:string
-    }
+    },
+    handleDelete?:any
 }
-const EmployeeTableRow = ({employee}:IEmployee) => {
-    const {name,address,branch,rate} = employee;
+const EmployeeTableRow = ({employee,handleDelete}:IEmployee) => {
+    const {_id,name,address,branch,rate} = employee;
     return (
         <tr>
             <td>{name}</td>
@@ -17,7 +19,7 @@ const EmployeeTableRow = ({employee}:IEmployee) => {
             <td>{branch}</td>
             <td>{rate}</td>
             <td>
-                <button>Delete</button>
+                <button onClick={()=>handleDelete(_id,name)}>Delete</button>
                 <button>Update</button>
             </td>
         </tr>

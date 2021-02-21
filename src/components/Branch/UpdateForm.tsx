@@ -26,7 +26,7 @@ const UpdateForm = ({store:{_id,location,branch},setOpenUpdateForm,openUpdateFor
             <button onClick={()=>setOpenUpdateForm(!openUpdateForm)}  className="close__button">X</button>
             <form className="input__form" onSubmit={handleSubmit(handleUpdate)}>
                 <input type="text" name="_id" value={_id} ref={register({required:true})} readOnly></input>
-                <input type="text" name="branch" value={newBranch} ref={register({required:true})} onChange={(e)=>setBranch(e.target.value)}></input>
+                <input type="text" name="branch" value={newBranch} ref={register({required:true})} readOnly onChange={(e)=>setBranch(e.target.value)}></input>
                 <input type="text" name="location" value={newLocation} ref={register({required:true})} onChange={(e)=>setLocation(e.target.value)}></input>
                 <input type="submit"></input>
             </form>

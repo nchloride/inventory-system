@@ -1,5 +1,5 @@
 import '../styles/globals.css';
-import Layout from "../Layouts/Layout";
+import Layout from "../Layout";
 import "./global-styles/nav.css";
 import "./global-styles/layout.css";
 import "./global-styles/table.css";
@@ -16,10 +16,15 @@ import "./global-styles/employees/index.css";
 import "./global-styles/modal.css"
 function MyApp({ Component, pageProps }) {
  
+
+ 
   return (
-    <Layout>
-          <Component {...pageProps} />
-    </Layout>
+    
+      <Layout>
+            <Component {...pageProps} />
+      </Layout>
+
+    
    )
 }
 

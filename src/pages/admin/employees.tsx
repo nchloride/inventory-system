@@ -11,7 +11,7 @@ export default function Employees(){
 
             <div className="tab employees">
                 <h1>Employees page</h1>
-                <EmployeeTable refresh={refresh} />
+                <EmployeeTable refresh={refresh}  setRefresh={setRefresh} />
                 <EmployeeForm refresh={refresh} setRefresh={setRefresh} />
             </div>
     
