@@ -24,9 +24,11 @@ const EmployeeTable = ({refresh,setRefresh}) => {
             <thead>
                 <tr>
                     <th>Name</th>
+                    <th>Username</th>
                     <th>Address</th>
                     <th>Branch</th>
                     <th>Rate</th>
+                    <th>Role</th>
                     <th></th>
                 </tr>
             </thead>

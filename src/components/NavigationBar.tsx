@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Link from "next/link";
 import {useRouter} from "next/router";
+import { route } from 'next/dist/next-server/server/router';
 // import "../styles/nav.css";
 const navLinks = [
+    {
+        name:"Dashboard",
+        url:""
+    },
     {
         name:'Branch',
         url:"branch"
@@ -10,10 +15,6 @@ const navLinks = [
     {
         name:'Employees',
         url:"employees"
-    },
-    {
-        name:'Attendance',
-        url:"attendance"
     },
     {
         name:'Inventory',
@@ -27,12 +28,15 @@ const navLinks = [
 export const NavigationBar = () => {
     const router = useRouter();
     
-    
+    useEffect(()=>{
+        console.log(router.pathname);
+        
+    },[])
 
     return (
         <ul className="side_navigation_bar">
             {navLinks.map((navLink,index)=>{
-                const isActive:string = router.pathname===`/admin/${navLink.url}` ? "activeLink" : "";
+                const isActive:string = router.pathname===`/admin/${navLink.url}`  ? "activeLink" : "";
                 return(
                     <li key={index} className={isActive}>
                         <Link href={`/admin/${navLink.url}`}>

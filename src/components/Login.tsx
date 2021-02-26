@@ -1,20 +1,14 @@
-import { log } from 'console';
-import { useRouter } from 'next/router';
-import React, { useRef } from 'react'
+
+import {useRouter} from "next/router";
+import React, { useRef } from 'react';
+import RoutesHandler from '../utils/routesHandler';
 
 
-const Login = ({setIsLogin,setRole}) => {
+
+const Login = () => {
     const router = useRouter();
     const inputBox = useRef(null);
     const authenticateUser = () =>{
-        // if(inputBox.current.value==="login"){
-        //     setIsLogin(true);
-        //     setRole("admin");
-        // }
-        // else if(inputBox.current.value==="employee"){
-        //     setIsLogin(true);
-        //     setRole('employee');
-        // }
         fetch("/api/auth",{
             method:'POST',
             mode:"cors",
@@ -24,10 +18,10 @@ const Login = ({setIsLogin,setRole}) => {
         })
         .then(res=> res.json())
         .then(data=>{
-            if(data.authenticated){
-                router.push("/admin");
-                setRole("admin");
-                setIsLogin(true);
+            if(data.token){
+                // router.push("/admin");
+                const routesHandler = new RoutesHandler(router);
+                routesHandler.redirectRoute(data.token);
             }
         });
         
@@ -35,7 +29,7 @@ const Login = ({setIsLogin,setRole}) => {
     return (
         <div>
             <input ref={inputBox} type="text" name='bobo'></input>
-            <button onClick={authenticateUser}>sd</button>
+            <button onClick={authenticateUser}>Submit</button>
         </div>
     )
 }

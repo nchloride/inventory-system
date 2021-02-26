@@ -1,10 +1,16 @@
 import React from 'react'
+import Layout from '../../Layout'
 
 const Inventory = () => {
+    
     return (
-        <div>
-            INVENTORY PAGE!
-        </div>
+        <Layout>
+            <div>
+                INVENTORY PAGE!
+            </div>
+        </Layout>
+
+    
     )
 }
 
