@@ -1,4 +1,4 @@
-import database from "../../../utils/database";
+import database from "../../../utils/config/database";
 import nc from "next-connect";
 import {NextApiRequest,NextApiResponse} from "next";
 

@@ -1,8 +1,8 @@
 import {NextApiRequest,NextApiResponse} from "next";
 import nc from "next-connect"
-import employeeAuth from "../../../utils/Auth/employeeAuth";
-import database from "../../../utils/database";
-import EncryptionHandler from "../../../utils/encryptionHandler";
+import employeeAuth from "../../../utils/validations/employeeAuth";
+import database from "../../../utils/config/database";
+import EncryptionController from "../../../utils/controllers/EncryptionController";
 const bcrypt = require('bcryptjs');
 // export default async function (req:NextApiRequest,res:NextApiResponse){
 //     res.json({message:"Working!"})
@@ -18,7 +18,7 @@ export default nc<NextApiRequest,NextApiResponse>()
             req.body = JSON.parse(req.body);
             const validatedEmployee = await employeeAuth.validateAsync(req.body);
             const {password,username} = req.body;
-            const hashedPassword = await EncryptionHandler.getEncryptedPassword(password);
+            const hashedPassword = await EncryptionController.getEncryptedPassword(password);
             employeeDb.findOne({username}).then((employee)=>{
                 if(employee){
                     res.json({

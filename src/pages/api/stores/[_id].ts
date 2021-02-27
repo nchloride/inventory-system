@@ -1,5 +1,5 @@
 import nextConnect from "next-connect";
-import db from "../../../utils/database";
+import db from "../../../utils/config/database";
 import {NextApiRequest,NextApiResponse} from "next"
 const stores = db.get("stores");
 
