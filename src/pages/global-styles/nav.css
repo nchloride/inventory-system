@@ -9,14 +9,17 @@
     flex-direction: column;
     width: 20vw;
     align-items: center;
-    justify-content: space-around;
     height: 100vh;
 }
-li{
+.side_navigation_bar>li{
     text-decoration: none;
     list-style: none;
     width: 100%;
     text-align: center;
+    margin: 20px;
+}
+.side_navigation_bar a{
+   font-size: 1vw;
 }
 .activeLink{
     transition: .2s ease-in;
