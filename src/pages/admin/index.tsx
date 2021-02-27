@@ -1,6 +1,6 @@
 import React from 'react'
 import Layout from '../../Layout'
-import TokenHandler from '../../utils/tokenHandler';
+import TokenController from '../../utils/controllers/TokenController';
 
 
 const Index = () => {

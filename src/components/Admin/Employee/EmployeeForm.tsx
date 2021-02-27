@@ -2,8 +2,8 @@ import { route } from 'next/dist/next-server/server/router';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState,useContext } from 'react';
 import {useForm} from "react-hook-form";
-import EmployeeHandler from '../../utils/employeeHandler';
-import Stores from "../../utils/storesHandler"
+import EmployeeHandler from '../../../utils/controllers/EmployeeController';
+import StoreController from "../../../utils/controllers/StoreController"
 
 
 
@@ -24,11 +24,12 @@ const EmployeeForm = ({refresh,setRefresh}) => {
         branch:string,
         rate:number,
         password:string,
-        username:string
+        username:string,
+        role:Roles
     }
     useEffect(() => {
         (async()=>{
-            setStores(await Stores.getStores());
+            setStores(await StoreController.getStores());
         })()
     }, [])
     const onFormSubmit = (data:IEmployee) =>{

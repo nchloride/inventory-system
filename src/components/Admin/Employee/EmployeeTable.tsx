@@ -1,5 +1,5 @@
 import React, { useState,useEffect,useContext } from 'react'
-import EmployeeHandler from '../../utils/employeeHandler';
+import EmployeeController from '../../../utils/controllers/EmployeeController';
 import EmployeeTableRow from './EmployeeTableRow';
 
 const EmployeeTable = ({refresh,setRefresh}) => {
@@ -7,14 +7,14 @@ const EmployeeTable = ({refresh,setRefresh}) => {
    
     useEffect(() => {
         (async()=>{
-            const employeeData = await EmployeeHandler.getEmployees();
+            const employeeData = await EmployeeController.getEmployees();
             setEmployees(employeeData);
         })()
     }, [refresh]);
     const handleDelete = (id:string,name:string)=>{
         if(confirm("Are you sure?")){
             if(prompt(`Please type ${name} to continue`))
-                EmployeeHandler.deleteEmployee(id).then(_=>{
+            EmployeeController.deleteEmployee(id).then(_=>{
                     setRefresh((prevData:boolean)=>!prevData);
                 });
         }

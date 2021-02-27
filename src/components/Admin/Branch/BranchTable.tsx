@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import StoreHandler from "../../utils/storesHandler";
+import StoreHandler from "../../../utils/controllers/StoreController";
 import BranchTableRow from "./BranchTableRow";
 
 export const BranchTable = ({refreshTable,setRefreshTable}) =>{

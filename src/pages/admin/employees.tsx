@@ -1,6 +1,6 @@
 import { useRefreshTable } from "../../components/customHooks/useRefreshTable";
-import EmployeeForm from "../../components/Employee/EmployeeForm";
-import EmployeeTable from "../../components/Employee/EmployeeTable";
+import EmployeeForm from "../../components/Admin/Employee/EmployeeForm";
+import EmployeeTable from "../../components/Admin/Employee/EmployeeTable";
 import Layout from "../../Layout";
 
 

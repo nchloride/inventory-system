@@ -1,7 +1,7 @@
 import React,{useState} from 'react';
 import Modal from "react-modal";
 import {useForm} from "react-hook-form";
-import StoreHandler from "../../utils/storesHandler";
+import StoreHandler from "../../../utils/controllers/StoreController";
 interface IUpdateData{
     _id:string;
     branch:string;

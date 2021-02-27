@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from 'react';
-import employeeHandler from '../../utils/employeeHandler';
+import EmployeeController from '../../../utils/controllers/EmployeeController';
 import UpdateForm from './UpdateForm';
 
 interface IStore {
@@ -21,7 +21,7 @@ const BranchTableRow = ({store,handleDelete,refreshTable,setRefreshTable}) => {
     }
     useEffect(() => {
         (()=>{
-            employeeHandler.getEmployees().then(data=>{
+            EmployeeController.getEmployees().then(data=>{
                 const storeEmployeeCount = data.filter(employee=> employee.branch === store.branch).length;
                 setEmployeeCount(storeEmployeeCount);
             })

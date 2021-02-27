@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import Link from "next/link";
 import {useRouter} from "next/router";
-import { route } from 'next/dist/next-server/server/router';
 // import "../styles/nav.css";
 const navLinks = [
     {

@@ -1,6 +1,6 @@
 import React from "react";
-import { BranchTable } from "../../components/Branch/BranchTable";
-import BranchForm from "../../components/Branch/BranchForm";
+import { BranchTable } from "../../components/Admin/Branch/BranchTable";
+import BranchForm from "../../components/Admin/Branch/BranchForm";
 import { useRefreshTable } from "../../components/customHooks/useRefreshTable";
 import Layout from "../../Layout/"
 

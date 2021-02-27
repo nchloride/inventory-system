@@ -1,7 +1,7 @@
 
 import {useRouter} from "next/router";
 import React, { useRef } from 'react';
-import RoutesHandler from '../utils/routesHandler';
+import RoutesController from '../utils/controllers/RoutesController';
 
 
 
@@ -20,7 +20,7 @@ const Login = () => {
         .then(data=>{
             if(data.token){
                 // router.push("/admin");
-                const routesHandler = new RoutesHandler(router);
+                const routesHandler = new RoutesController(router);
                 routesHandler.redirectRoute(data.token);
             }
         });
