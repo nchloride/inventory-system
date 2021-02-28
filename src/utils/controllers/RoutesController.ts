@@ -5,8 +5,8 @@ export default  class RoutesHandler{
     constructor(router){
         this.router = router
     }
-    public redirectRoute(token){
-        const decodedToken = jwt.verify(token,process.env.TOKEN_KEY);
+    public async redirectRoute(token){
+        const decodedToken = await jwt.verify(token,process.env.TOKEN_KEY);
         if(decodedToken.role ==="admin"){
             this.router.push("/admin")
         }

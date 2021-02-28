@@ -4,8 +4,17 @@ import {useForm} from "react-hook-form"
 
 export default function InventoryForm({branches}){
     const {handleSubmit,register,reset} = useForm();
-    const onFormSubmit = (data:any) =>{
-        console.log(data);
+    const onFormSubmit = async(data:any) =>{
+        const res = await fetch('/api/inventory',{
+            method:"POST",
+            mode:"cors",
+            headers:{
+                "Content-Type": "application/json"
+            },
+            body:JSON.stringify(data)
+        }).then(dataResponse=> dataResponse.json());
+        console.log(res);
+        
     }
     return (
         <form className="input__form inventory__form" onSubmit={handleSubmit(onFormSubmit)}>
