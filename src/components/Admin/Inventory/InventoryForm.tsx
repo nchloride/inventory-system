@@ -1,19 +1,19 @@
 import {useState} from "react";
 import {useForm} from "react-hook-form"
+import {useRouter} from "next/router";
+import InventoryController from "../../../utils/controllers/InventoryController";
 
 
 export default function InventoryForm({branches}){
     const {handleSubmit,register,reset} = useForm();
+    const router = useRouter();
+    const inventory = new InventoryController(router)
     const onFormSubmit = async(data:any) =>{
-        const res = await fetch('/api/inventory',{
-            method:"POST",
-            mode:"cors",
-            headers:{
-                "Content-Type": "application/json"
-            },
-            body:JSON.stringify(data)
-        }).then(dataResponse=> dataResponse.json());
-        console.log(res);
+        inventory.setStocks(data)
+            .then(data=>{
+                reset()
+            }
+        );
         
     }
     return (

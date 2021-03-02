@@ -14,4 +14,7 @@ export default  class RoutesHandler{
             this.router.push("/employee");
         }
     }
+    public async refreshRoute(){
+        this.router.push(this.router.asPath);
+    }
 }

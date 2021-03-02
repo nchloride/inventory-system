@@ -1,5 +1,11 @@
-export default new class Employee{
+import RoutesHandler from "./RoutesController";
+
+export  class EmployeeController{
     private employeeEndpoint = "/api/employees/";
+    private routeHandler;
+    constructor(router){
+        this.routeHandler = new RoutesHandler(router);
+    }
     public async setEmployee (employee){
         try{
             const res = await fetch(`${this.employeeEndpoint}`,{
@@ -7,6 +13,7 @@ export default new class Employee{
             mode:"cors",
             body:JSON.stringify(employee)
             })
+            this.routeHandler.refreshRoute();
            return await res.json();
         }
         catch(e){
@@ -29,6 +36,7 @@ export default new class Employee{
                 mode:"cors"
             });
             const data = await res.json();
+            this.routeHandler.refreshRoute();
             return data;
         } catch (error) {
             return error;
@@ -36,3 +44,4 @@ export default new class Employee{
     }
 
 } 
+export default EmployeeController;

@@ -1,22 +1,15 @@
+import { useRouter } from 'next/router';
 import React, { useState,useEffect,useContext } from 'react'
 import EmployeeController from '../../../utils/controllers/EmployeeController';
 import EmployeeTableRow from './EmployeeTableRow';
 
-const EmployeeTable = ({refresh,setRefresh}) => {
-    const [employees,setEmployees] = useState([]);
-   
-    useEffect(() => {
-        (async()=>{
-            const employeeData = await EmployeeController.getEmployees();
-            setEmployees(employeeData);
-        })()
-    }, [refresh]);
+const EmployeeTable = ({employees}) => {
+    const router = useRouter()
+    const employeeHandler = new EmployeeController(router);
     const handleDelete = (id:string,name:string)=>{
         if(confirm("Are you sure?")){
             if(prompt(`Please type ${name} to continue`))
-            EmployeeController.deleteEmployee(id).then(_=>{
-                    setRefresh((prevData:boolean)=>!prevData);
-                });
+                employeeHandler.deleteEmployee(id);
         }
     }
     return (

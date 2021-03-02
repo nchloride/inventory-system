@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import React, { useState,useEffect } from 'react';
 import EmployeeController from '../../../utils/controllers/EmployeeController';
 import UpdateForm from './UpdateForm';
@@ -10,9 +11,11 @@ interface IStore {
 }
 
 const BranchTableRow = ({store,handleDelete,refreshTable,setRefreshTable}) => {
+    const router = useRouter();
     const {_id,branch,location}:IStore = store;
     const [openUpdateForm,setOpenUpdateForm] = useState<boolean>(false);
     const [employeeCount,setEmployeeCount] = useState<number>();
+    const employeeController = new EmployeeController(router);
     const deleteOnClick = () =>{
         handleDelete(store._id,store.branch);
     }
@@ -21,7 +24,7 @@ const BranchTableRow = ({store,handleDelete,refreshTable,setRefreshTable}) => {
     }
     useEffect(() => {
         (()=>{
-            EmployeeController.getEmployees().then(data=>{
+            employeeController.getEmployees().then(data=>{
                 const storeEmployeeCount = data.filter(employee=> employee.branch === store.branch).length;
                 setEmployeeCount(storeEmployeeCount);
             })

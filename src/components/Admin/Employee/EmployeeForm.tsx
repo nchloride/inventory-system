@@ -2,15 +2,15 @@ import { route } from 'next/dist/next-server/server/router';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState,useContext } from 'react';
 import {useForm} from "react-hook-form";
-import EmployeeHandler from '../../../utils/controllers/EmployeeController';
+import EmployeeController from '../../../utils/controllers/EmployeeController';
 import StoreController from "../../../utils/controllers/StoreController"
 
 
 
-const EmployeeForm = ({refresh,setRefresh}) => {
+const EmployeeForm = ({stores}) => {
     const router = useRouter();
     const {errors,handleSubmit,register,reset} = useForm();
-    const [stores,setStores] = useState([]);
+    const employeeController = new EmployeeController(router);
     const [inputError,setInputError] = useState({
         alreadyExist:false,
     })
@@ -27,17 +27,11 @@ const EmployeeForm = ({refresh,setRefresh}) => {
         username:string,
         role:Roles
     }
-    useEffect(() => {
-        (async()=>{
-            setStores(await StoreController.getStores());
-        })()
-    }, [])
     const onFormSubmit = (data:IEmployee) =>{
-        EmployeeHandler.setEmployee(data).then(data=>{
+        employeeController.setEmployee(data).then(data=>{
             if(data.added){
                 reset();
                 setInputError({alreadyExist:false});
-                setRefresh(!refresh);
             }
             else{
                 setInputError({alreadyExist:true});

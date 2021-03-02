@@ -12,6 +12,9 @@ const Login = () => {
         fetch("/api/auth",{
             method:'POST',
             mode:"cors",
+            headers:{
+                "Content-Type": "application/json"
+            },
             body:JSON.stringify({
                 name:inputBox.current.value
             })
@@ -19,7 +22,6 @@ const Login = () => {
         .then(res=> res.json())
         .then(data=>{
             if(data.token){
-                // router.push("/admin");
                 const routesHandler = new RoutesController(router);
                 routesHandler.redirectRoute(data.token);
             }
