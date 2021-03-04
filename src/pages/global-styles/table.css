@@ -6,12 +6,12 @@ table{
     table-layout: fixed;
     
 }
-tr th{
+tr>th{
     background-color: rgb(53, 53, 53);
     color: white;
 }
 td,th{
-    padding: 10px;
+    padding: 5px;
     border: none;
     width: 100%;
     text-align: center;
@@ -33,7 +33,7 @@ tr:nth-child(even){
 
 }
 tr:hover{
-    cursor: po;
+    cursor: pointer;
     transition: .2s ease-in;
     background-color: rgb(63, 63, 63);
     color: white;
