@@ -1,7 +1,10 @@
 import {useForm} from "react-hook-form";
 import React from "react";
-
-export const BranchForm  = ({setRefreshTable})=>{
+import StoreController from "../../../utils/controllers/StoreController";
+import { useRouter } from "next/router";
+export const BranchForm  = ()=>{
+    const router = useRouter();
+    const storeController = new StoreController(router);
     const {handleSubmit,register,reset} = useForm<FormData>();
     interface IData {
         name:string,
@@ -9,17 +12,10 @@ export const BranchForm  = ({setRefreshTable})=>{
         branch:string,
     }
     const onSubmit = async (data:IData) =>{
-        console.log(data);
         try{
-            const response = await fetch("/api/stores",{
-                method:"POST",
-                mode:"cors",
-                body:JSON.stringify(data),
-            });
-            const result = await response.json();
-            console.log(result);
-            reset();
-            setRefreshTable((prevData:boolean)=>!prevData);
+            storeController.addStore(data).then(_=>{
+                reset();
+            })
         }
         catch(error){
             console.log(error);

@@ -1,23 +1,25 @@
 import React,{useState} from 'react';
 import Modal from "react-modal";
 import {useForm} from "react-hook-form";
-import StoreHandler from "../../../utils/controllers/StoreController";
+import StoreController from "../../../utils/controllers/StoreController";
+import { useRouter } from 'next/router';
 interface IUpdateData{
     _id:string;
     branch:string;
     location:string
 }
 
-const UpdateForm = ({store:{_id,location,branch},setOpenUpdateForm,openUpdateForm,refreshTable,setRefreshTable}) => {
+const UpdateForm = ({store:{_id,location,branch},setOpenUpdateForm,openUpdateForm}) => {
+    const router = useRouter();
+    const storeController = new StoreController(router);
     const {handleSubmit,register,errors} = useForm();
     const [newLocation,setLocation] = useState<string>(location);
     const [newBranch,setBranch] = useState<string>(branch);
 
     Modal.setAppElement("body");
-
+    
     const handleUpdate = (data:IUpdateData)=>{
-        StoreHandler.updateStore(data).then(res=>{
-            setRefreshTable(!refreshTable);
+        storeController.updateStore(data).then(res=>{
             setOpenUpdateForm(!openUpdateForm)
         })
 }

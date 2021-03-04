@@ -10,7 +10,7 @@ interface IStore {
     employeeCount:number;
 }
 
-const BranchTableRow = ({store,handleDelete,refreshTable,setRefreshTable}) => {
+const BranchTableRow = ({store,handleDelete}) => {
     const router = useRouter();
     const {_id,branch,location}:IStore = store;
     const [openUpdateForm,setOpenUpdateForm] = useState<boolean>(false);
@@ -41,7 +41,7 @@ const BranchTableRow = ({store,handleDelete,refreshTable,setRefreshTable}) => {
                     <button onClick={updateOnClick}>Update</button>
                 </td>
             </tr>
-            {openUpdateForm && <UpdateForm store={store} refreshTable={refreshTable}setRefreshTable={setRefreshTable} setOpenUpdateForm ={setOpenUpdateForm} openUpdateForm={openUpdateForm}/>}
+            {openUpdateForm && <UpdateForm store={store}  setOpenUpdateForm ={setOpenUpdateForm} openUpdateForm={openUpdateForm}/>}
     
         </>
     )
