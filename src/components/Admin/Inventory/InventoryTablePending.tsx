@@ -1,6 +1,9 @@
 
 
 export const InventoryTablePending = ({stocks})=>{
+    function isToday (date:string):boolean{
+        return Date().toString().slice(4,15) === new Date(date).toString().slice(4,15);
+    }
     return (
         <table>
             <thead>
@@ -14,7 +17,7 @@ export const InventoryTablePending = ({stocks})=>{
             </thead>
             <tbody>
                 {stocks?.map(stock=>{
-                    if(!stock.submittedBy)
+                    if(!stock.submittedBy  ){
                         return(
                             <tr key={stock._id}>
                                 <td>{stock.branch}</td>
@@ -24,6 +27,8 @@ export const InventoryTablePending = ({stocks})=>{
                                 <td>{stock.date}</td>
                             </tr>
                         )
+                    }
+
                 }
                 )}
             </tbody>

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import Link from "next/link";
 import {useRouter} from "next/router";
+import TokenController from '../utils/controllers/TokenController';
 // import "../styles/nav.css";
 const navLinks = [
     {
@@ -45,6 +46,11 @@ export const NavigationBar = () => {
                 )
            
             })}
+                    <li onClick={TokenController.deleteToken}>
+                        <Link href='/'>
+                            <a>Logout</a>
+                        </Link>
+                    </li>
         </ul>
     )
 }
