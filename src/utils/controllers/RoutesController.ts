@@ -7,6 +7,7 @@ export default  class RoutesHandler{
     }
     public async redirectRoute(token){
         const decodedToken = await jwt.verify(token,process.env.TOKEN_KEY);
+        document.cookie = `token = ${token}`;
         if(decodedToken.role ==="admin"){
             this.router.push("/admin")
         }

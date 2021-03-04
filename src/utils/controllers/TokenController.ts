@@ -1,15 +1,13 @@
 export default new class TokenHandler{
     
 
-    public setCookie(token:string){
-        document.cookie = `token = ${token}`;
-    }
+    
     get getCookie(){
-        return document.cookie.split(";")
+        return Object.assign({},...document.cookie.split(";")
                 .map(cookies => cookies.split("="))
-                .reduce((accumulator, [key, val])=>
-                    ({...accumulator,[key.trim()]:decodeURIComponent(val)})
-                )
+                .map(([key,val]) =>{
+                    return {[key]:val}
+                })).token
     }
     public deleteToken(){
         document.cookie = `token = `;
