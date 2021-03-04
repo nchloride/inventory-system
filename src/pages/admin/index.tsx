@@ -1,6 +1,7 @@
+import { GetServerSideProps } from 'next';
 import React from 'react'
 import Layout from '../../Layout'
-import TokenController from '../../utils/controllers/TokenController';
+
 
 
 const Index = () => {

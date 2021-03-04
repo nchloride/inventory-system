@@ -9,9 +9,9 @@ function Inventory({stores,stocks})  {
     return (
         <Layout>
             <div className="tab inventory">
-                INVENTORY PAGE!
+                <h1>INVENTORY PAGE! </h1>
+                <InventoryTablePending stocks={stocks}/>
                 <InventoryForm branches={stores}/>
-                <InventoryTablePending stocks={stocks} />
             </div>
         </Layout> 
     )
