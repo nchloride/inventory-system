@@ -1,17 +1,23 @@
-import axios from "axios"
-import React from 'react'
-import InventoryForm from '../../components/Admin/Inventory/InventoryForm'
-import InventoryTablePending from "../../components/Admin/Inventory/InventoryTablePending"
-import Layout from '../../Layout'
-import StoreController from '../../utils/controllers/StoreController'
+import AddIcon from '@material-ui/icons/Add';
+import axios from "axios";
+import InventoryForm from '../../components/Admin/Inventory/InventoryForm';
+import InventoryTablePending from "../../components/Admin/Inventory/InventoryTablePending";
+import Layout from '../../Layout';
+import React,{useState} from 'react';
+import StoreController from '../../utils/controllers/StoreController';
 
 function Inventory({stores,stocks})  {
+    const [openAddForm,setOpenAddForm] = useState<boolean>(false);
+
     return (
         <Layout>
             <div className="tab inventory">
-                <h1>INVENTORY PAGE! </h1>
+                <div className="tab_title">
+                    <h1>INVENTORY PAGE! </h1>
+                    <button onClick={()=>setOpenAddForm(!openAddForm)} className="add_data"><AddIcon/>Add Inventory</button>
+                </div>
                 <InventoryTablePending stocks={stocks}/>
-                <InventoryForm branches={stores}/>
+                <InventoryForm modalOpen={openAddForm} setModalOpen={setOpenAddForm} branches={stores}/>
             </div>
         </Layout> 
     )

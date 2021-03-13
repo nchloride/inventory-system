@@ -1,27 +1,44 @@
-import React from "react";
+import AddIcon from '@material-ui/icons/Add';
+import axios from "axios";
 import { BranchTable } from "../../components/Admin/Branch/BranchTable";
 import BranchForm from "../../components/Admin/Branch/BranchForm";
-import { useRefreshTable } from "../../components/customHooks/useRefreshTable";
-import Layout from "../../Layout/"
 import { GetServerSideProps, GetServerSidePropsResult } from "next";
-import axios from "axios";
-
+import Layout from "../../Layout/"
+import React, { useState } from "react";
+import { useRefreshTable } from "../../components/customHooks/useRefreshTable";
+import cookie from "cookie"
 
 export const Branch = ({stores,employees}) => {
-    const [refreshTable,setRefreshTable]  = useRefreshTable(false);
+    const [openAddForm,setOpenAddForm] = useState<boolean>(false);
     return (
-        <Layout>
-            <div className="tab branch">
-                <h1>Branch Page</h1>
-                <BranchTable stores={stores} employees={employees}/> 
-                <BranchForm />
-            </div>
-        </Layout>
-    )
+            <Layout>
+                <div className="tab branch">
+                    <div className="tab_title">
+                        <h1>Branch Page</h1>
+                        <button onClick={()=>setOpenAddForm(true)} className="add_data"><AddIcon/>Add Branch</button>
+                    </div>
+                    <BranchTable stores={stores} employees={employees}/> 
+                    {openAddForm && <BranchForm open={openAddForm} setClose={setOpenAddForm}/>}
+                </div>
+            </Layout>
+        )
+
 }
-export const getServerSideProps:GetServerSideProps = async (context) =>{
+export const getServerSideProps = async ({req,res}) =>{
     const stores = await axios.get("http://localhost:3000/api/stores");
     const employees = await axios.get("http://localhost:3000/api/employees");   
+    const cookies = cookie.parse(req.headers.cookie || "");
+    console.log(cookies);
+    
+    if(!cookies.token){
+        return{
+            redirect:{
+                destination:"/",
+                permanent:true
+            }
+        }
+    }
+
     return{
         props:{
             stores:stores.data,
