@@ -1,7 +1,9 @@
-import { useRouter } from 'next/router';
-import React, { useState,useEffect } from 'react';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import EmployeeController from '../../../utils/controllers/EmployeeController';
+import EditIcon from '@material-ui/icons/Edit';
+import React, { useState,useEffect } from 'react';
 import UpdateForm from './UpdateForm';
+import { useRouter } from 'next/router';
 
 interface IStore {
     _id:string;
@@ -37,8 +39,8 @@ const BranchTableRow = ({store,handleDelete}) => {
                 <td>{location}</td>
                 <td>{employeeCount}</td>
                 <td>
-                    <button onClick={deleteOnClick} >Delete</button>
-                    <button onClick={updateOnClick}>Update</button>
+                    <button onClick={deleteOnClick} className="delete_button" ><DeleteForeverIcon/></button>
+                    <button onClick={updateOnClick}  className="edit_button"><EditIcon/></button>
                 </td>
             </tr>
             {openUpdateForm && <UpdateForm store={store}  setOpenUpdateForm ={setOpenUpdateForm} openUpdateForm={openUpdateForm}/>}

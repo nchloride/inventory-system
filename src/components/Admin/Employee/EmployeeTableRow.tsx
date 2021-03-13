@@ -1,5 +1,6 @@
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import EditIcon from '@material-ui/icons/Edit';
 import React, { useState } from 'react'
-
 interface IEmployee{
     employee:{
         _id:string,
@@ -24,8 +25,8 @@ const EmployeeTableRow = ({employee,handleDelete}:IEmployee) => {
             <td>{rate}</td>
             <td>{role}</td>
             <td>
-                <button onClick={()=>handleDelete(_id,name)}>Delete</button>
-                <button>Update</button>
+                <button onClick={()=>handleDelete(_id,name)}  className="delete_button"><DeleteForeverIcon/></button>
+                <button className="edit_button"><EditIcon/></button>
             </td>
         </tr>
     )

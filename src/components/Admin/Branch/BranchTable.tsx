@@ -6,6 +6,7 @@ import BranchTableRow from "./BranchTableRow";
 export const BranchTable = ({stores,employees}) =>{
     const router = useRouter();
     const storeController = new StoreController(router);
+    
     const handleDelete = (_id,branch:string):void =>{
         if(confirm("Are you sure you want to delete this branch?"))
             if(prompt(`Type "${branch}" to delete this store`) === branch)

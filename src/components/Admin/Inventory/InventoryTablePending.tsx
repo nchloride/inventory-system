@@ -17,7 +17,7 @@ export const InventoryTablePending = ({stocks})=>{
             </thead>
             <tbody>
                 {stocks?.map(stock=>{
-                    if(!stock.submittedBy  ){
+                    if(!stock.approved){
                         return(
                             <tr key={stock._id}>
                                 <td>{stock.branch}</td>
@@ -25,11 +25,11 @@ export const InventoryTablePending = ({stocks})=>{
                                 <td>{stock.name}</td>
                                 <td>{stock.price}</td>
                                 <td>{stock.date}</td>
+                                <td><strong>{!stock.submittedBy? "Pending" : "Approving"}</strong></td>
                             </tr>
                         )
                     }
-
-                }
+                }  
                 )}
             </tbody>
         </table>
