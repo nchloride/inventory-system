@@ -6,16 +6,16 @@ export default  class RoutesHandler{
         this.router = router
     }
     public async redirectRoute(token){
-        const decodedToken = await jwt.verify(token,process.env.TOKEN_KEY);
-        document.cookie = `token = ${token}`;
-        if(decodedToken.role ==="admin"){
-            this.router.push("/admin")
-        }
-        else{
-            this.router.push("/employee");
+        try {
+            const decodedToken = await jwt.verify(token,process.env.TOKEN_KEY);
+            document.cookie = `token=${token}`
+            this.router.push(`/${decodedToken.role}`); 
+        } catch (error) {
+            this.router.push("/");
         }
     }
     public async refreshRoute(){
         this.router.push(this.router.asPath);
     }
+
 }

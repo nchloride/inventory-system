@@ -11,9 +11,11 @@ const bcrypt = require('bcryptjs');
 
 const employeeDb = database.get("employees")
 export default nc<NextApiRequest,NextApiResponse>()
+    .use((req,res,next)=>{
+        next();
+    })
     .post(async(req,res)=>{
         try{
-            console.log(req.body);
             req.body = JSON.parse(req.body);
             const validatedEmployee = await employeeAuth.validateAsync(req.body);
             const {password,username} = req.body;

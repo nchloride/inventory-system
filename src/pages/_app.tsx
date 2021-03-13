@@ -1,5 +1,4 @@
 import '../styles/globals.css';
-import Layout from "../Layout";
 import "./global-styles/nav.css";
 import "./global-styles/layout.css";
 import "./global-styles/table.css";
@@ -19,17 +18,13 @@ import "./global-styles/inventory/index.css"
 import "./global-styles/login.css"
 //Modal
 import "./global-styles/modal.css"
+
+import { Provider } from "next-auth/client"
+
 function MyApp({ Component, pageProps }) {
- 
 
- 
   return (
-    
-      
-            <Component {...pageProps} />
-      
-
-    
+      <Component {...pageProps} />
    )
 }
 

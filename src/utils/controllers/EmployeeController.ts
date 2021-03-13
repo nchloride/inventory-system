@@ -1,4 +1,5 @@
 import RoutesHandler from "./RoutesController";
+import TokenController from "./TokenController";
 
 export  class EmployeeController{
     private employeeEndpoint = "/api/employees/";
@@ -11,7 +12,11 @@ export  class EmployeeController{
             const res = await fetch(`${this.employeeEndpoint}`,{
             method:"POST",
             mode:"cors",
-            body:JSON.stringify(employee)
+            body:JSON.stringify(employee),
+            headers:{
+                "Content-Type":"application/json",
+                "Authorization":`Bearer ${TokenController.getCookie}`
+            }
             })
             this.routeHandler.refreshRoute();
            return await res.json();
@@ -23,7 +28,14 @@ export  class EmployeeController{
     }
     public async getEmployees(){
         try {
-            const employees = await fetch(this.employeeEndpoint);
+            const employees = await fetch(this.employeeEndpoint,{
+                method:"GET",
+                mode:'cors',
+                headers:{
+                    "Content-Type":"application/json",
+                    "Authorization":`Bearer ${TokenController.getCookie}`
+                }
+            });
             return await employees.json();
         } catch (error) {
             return error
