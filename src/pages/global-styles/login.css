@@ -1,4 +1,4 @@
-.login__form{
+.login_page{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -6,6 +6,13 @@
     height: 100vh;
     width: 100%;
     box-sizing: border-box;
+}
+.login__form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 400px;
+    box-shadow: 0 0 3pt 1pt black;
 }
 .login__form input{
     width: 400px;
@@ -17,14 +24,17 @@
     padding: 5px;
 }
 .login__form h1 {
+    text-align: center;
     font-size: 4rem;
-    max-width: 90%;
+    background-color: gainsboro;
+    width: 100%;
 }
 .login__form input[type=text],.login__form input[type=password]{
     border: 1px solid rgb(182, 182, 182);
 }
 .login__form input:focus:not(input[type=submit]){
-    outline-color: rgb(47, 225, 231);
+    outline-color: transparent;
+    box-shadow: 0 0 3pt 1pt rgb(1, 120, 255);
 }
 .login__form input[type=submit]{
     border:none;

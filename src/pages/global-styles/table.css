@@ -1,7 +1,7 @@
 table{
-    border: 1px solid black;
-    width: 75vw;
-    height: 50%;
+    box-shadow: 0 0 3pt 1pt black;
+    width: 90%;
+    height: 80%;
     display: table;
     table-layout: fixed;
     
@@ -37,4 +37,18 @@ tr:hover{
     transition: .2s ease-in;
     background-color: rgb(63, 63, 63);
     color: white;
+}
+td button{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+td button:hover{
+    background-color: whitesmoke;
+}
+td .delete_button{
+    color: red;
+}
+td .edit_button{
+    color: blue;
 }

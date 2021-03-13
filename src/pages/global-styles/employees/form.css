@@ -1,4 +1,16 @@
 .employee__form{
+    height: 100%;
     width: 100%;
-    display: grid;
+    background-color: whitesmoke;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-content: space-around;
+    padding: 10px;
 }
+
+.employee_info, .employee_work_info, .employee_credentials{
+    display: flex;
+    width: 100%;
+}
+

@@ -3,27 +3,40 @@
     padding: 0%;
 }
 .side_navigation_bar{
-    background-color: rgb(80, 80, 80);
+    background-color: rgb(0, 0, 0);
     color: whitesmoke;
     display: flex;
     flex-direction: column;
     width: 20vw;
     align-items: center;
     height: 100vh;
+    padding: 10px;
 }
 .side_navigation_bar>li{
     text-decoration: none;
     list-style: none;
     width: 100%;
     text-align: center;
-    margin: 20px;
+    margin-bottom: 20px;
 }
 .side_navigation_bar a{
-   font-size: 1vw;
+   font-size: 1.2vw;
+   display: flex;
+   align-items: center;
+   margin: 10px;
 }
+.side_navigation_bar a>p{
+    margin-left: 10px;
+}
+.side_navigation_bar img{
+    object-fit:contain;
+    margin: unset;
+    height: 100%;
+    width: 100%;
+ }
 .activeLink{
     transition: .2s ease-in;
     background-color: rgb(138, 138, 138);
-    color: white;
+    color: BLACK;
     font-weight: bolder;
 }
