@@ -5,7 +5,7 @@ import EmployeeTable from "../../components/Admin/Employee/EmployeeTable";
 import Layout from "../../Layout";
 import { useState } from "react";
 import TokenController from '../../utils/controllers/TokenController';
-
+import cookie from "cookie"
 
 export default function Employees({employees,stores}){
     const [openModal,setOpenModal] = useState<boolean>(false)
@@ -22,12 +22,11 @@ export default function Employees({employees,stores}){
         </Layout>
     )
 }
-export async function getServerSideProps(ctx){
-    const employees = await axios.get("http://localhost:3000/api/employees",
-        {headers:{
-            "Authorization":"Okay"
-        }});
-    const stores = await axios.get("http://localhost:3000/api/stores");
+export async function getServerSideProps({req,res}){
+    const {token} = cookie.parse(req.headers.cookie);
+    const employees = await axios.get("http://localhost:3000/api/employees");
+    const stores = await axios.get("http://localhost:3000/api/stores",
+                    {headers:{"Authorization":`Bearer ${token}`}});
 
 
     return{

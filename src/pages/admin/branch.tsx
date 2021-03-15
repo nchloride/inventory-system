@@ -7,6 +7,7 @@ import Layout from "../../Layout/"
 import React, { useState } from "react";
 import { useRefreshTable } from "../../components/customHooks/useRefreshTable";
 import cookie from "cookie"
+import { withAuth } from '../../lib/withAuth';
 
 export const Branch = ({stores,employees}) => {
     const [openAddForm,setOpenAddForm] = useState<boolean>(false);
@@ -25,19 +26,10 @@ export const Branch = ({stores,employees}) => {
 
 }
 export const getServerSideProps = async ({req,res}) =>{
-    const stores = await axios.get("http://localhost:3000/api/stores");
+    const {token} = cookie.parse(req.headers.cookie);
+    const stores:any = await axios.get("http://localhost:3000/api/stores",
+                            {headers:{"authorization":`Bearer ${token}`}});
     const employees = await axios.get("http://localhost:3000/api/employees");   
-    const cookies = cookie.parse(req.headers.cookie || "");
-    console.log(cookies);
-    
-    if(!cookies.token){
-        return{
-            redirect:{
-                destination:"/",
-                permanent:true
-            }
-        }
-    }
 
     return{
         props:{
