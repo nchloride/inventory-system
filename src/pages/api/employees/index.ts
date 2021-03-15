@@ -16,7 +16,8 @@ export default nc<NextApiRequest,NextApiResponse>()
     })
     .post(async(req,res)=>{
         try{
-            req.body = JSON.parse(req.body);
+            console.log(req.body);
+            
             const validatedEmployee = await employeeAuth.validateAsync(req.body);
             const {password,username} = req.body;
             const hashedPassword = await EncryptionController.getEncryptedPassword(password);
