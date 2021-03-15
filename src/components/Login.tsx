@@ -25,6 +25,7 @@ const Login = () => {
         .then(data=>{
             if(data.token){
                 routesHandler.redirectRoute(data.token);
+                setError("");
             }else{
                 setError("Incorrect username or password");
             }
