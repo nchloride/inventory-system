@@ -1,4 +1,5 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+import apiMiddleware from "../../../lib/authorizationMiddleware";
 import db from "../../../utils/config/database";
 import storeSchema from "../../../utils/validations/storesAuth";
 import next, {NextApiRequest,NextApiResponse} from "next";
@@ -7,19 +8,7 @@ const jwt = require('jsonwebtoken');
 
 const stores = db.get("stores");
 export default nextConnect<NextApiRequest,NextApiResponse>()
-    .use(async(req,res,next)=>{
-        const authenticationToken = req.headers.authorization.split(" ")[1];
-        jwt.verify(authenticationToken,process.env.TOKEN_KEY,(err,decoded)=>{ 
-            if(err){  
-                res.json({
-                    isAuthenticated:false
-                });
-            }
-            else if(decoded.role ==="admin"){
-                next();
-            }
-        })
-    })
+    .use(apiMiddleware)
     .post( async (req,res)=>{
         try {
             req.body = JSON.parse(req.body);
