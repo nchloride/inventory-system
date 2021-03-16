@@ -1,8 +1,10 @@
 import RoutesHandler from "./RoutesController";
+import TokenController from "./TokenController";
 
 class Stores{
     private storeAPIEndpoint:string ='/api/stores/';
     private routeHandler;
+    private tokenHandler;
     constructor(router){
         this.routeHandler = new RoutesHandler(router);
     }
@@ -10,6 +12,9 @@ class Stores{
         const res = await fetch(`${this.storeAPIEndpoint}${_id}`,{
             method:"DELETE",
             mode:"cors",
+            headers:{
+                "authorization": `Bearer ${TokenController.getCookie}`
+            }
         });
         const data = await res.json();
         this.routeHandler.refreshRoute();
