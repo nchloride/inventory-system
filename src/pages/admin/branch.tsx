@@ -8,7 +8,8 @@ import React, { useState } from "react";
 import { useRefreshTable } from "../../components/customHooks/useRefreshTable";
 import cookie from "cookie"
 import { withAuth } from '../../lib/withAuth';
-
+import { DeckRounded } from '@material-ui/icons';
+const jwt = require('jsonwebtoken');
 export const Branch = ({stores,employees}) => {
     const [openAddForm,setOpenAddForm] = useState<boolean>(false);
     return (
@@ -26,16 +27,25 @@ export const Branch = ({stores,employees}) => {
 
 }
 export const getServerSideProps = async ({req,res}) =>{
-    const {token} = cookie.parse(req.headers.cookie);
-    const stores:any = await axios.get("http://localhost:3000/api/stores",
-                            {headers:{"authorization":`Bearer ${token}`}});
-    const employees = await axios.get("http://localhost:3000/api/employees");   
-
-    return{
-        props:{
-            stores:stores.data,
-            employees:employees.data
+    const redirectToLogin = {
+        redirect:{
+            destination:"/",
+            permanent:false
         }
     }
+        const {token} = cookie.parse(req.headers.cookie);
+        if(token){  
+            const stores:any = await axios.get("http://localhost:3000/api/stores",
+                                    {headers:{"authorization":`Bearer ${token}`}});
+            const employees = await axios.get("http://localhost:3000/api/employees");   
+            return{
+                props:{
+                    stores:stores.data,
+                    employees:employees.data
+                }
+            }
+        }
+        return redirectToLogin;
+    
 }
 export default Branch;

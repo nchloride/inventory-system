@@ -2,6 +2,7 @@ import { GetServerSideProps } from 'next';
 import React from 'react';
 import Layout from '../../Layout';
 import cookie from "cookie";
+import { log } from 'console';
 const jwt = require("jsonwebtoken");
 const Index = () => {
     return (
@@ -11,17 +12,16 @@ const Index = () => {
     )
 }
 // export const getServerSideProps = async ({req,res})=>{
-//     const parsedCookie = cookie.parse(req.headers.cookie || "" );
-//     if(parsedCookie.token){
-//         const employee = await jwt.verify(parsedCookie.token,process.env.TOKEN_KEY);
-//         if(employee.role){
+//     const {token} = cookie.parse(req.headers.cookie);
+//     if(token){
+//         const employee = await jwt.verify(token,process.env.TOKEN_KEY);
 //           return{
 //                redirect:{
 //                    destination:`/${employee.role}`,
 //                    permanent:false
 //                }
 //            }
-//         } 
+         
 //     }
 //         console.log("No cookie");
 //         return{
