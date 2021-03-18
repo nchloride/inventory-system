@@ -6,7 +6,7 @@ import Layout from "../../Layout";
 import { useState } from "react";
 import TokenController from '../../utils/controllers/TokenController';
 import cookie from "cookie"
-
+const jwt = require("jsonwebtoken");
 export default function Employees({employees,stores}){
     const [openModal,setOpenModal] = useState<boolean>(false)
     return(
@@ -23,16 +23,28 @@ export default function Employees({employees,stores}){
     )
 }
 export async function getServerSideProps({req,res}){
-    const {token} = cookie.parse(req.headers.cookie);
-    const employees = await axios.get("http://localhost:3000/api/employees");
-    const stores = await axios.get("http://localhost:3000/api/stores",
-                    {headers:{"Authorization":`Bearer ${token}`}});
-
-
-    return{
-        props:{
-            employees:employees.data,
-            stores:stores.data
+    const {token} = cookie.parse(req.headers.cookie || "");
+    if(token){
+        const {role} = jwt.verify(token,process.env.TOKEN_KEY);
+        console.log(role);
+        if(role === "admin"){
+            const employees = await axios.get("http://localhost:3000/api/employees");
+            const stores = await axios.get("http://localhost:3000/api/stores",
+                            {headers:{"Authorization":`Bearer ${token}`}});
+      
+            return{
+                props:{
+                    employees:employees.data,
+                    stores:stores.data
+                }
+            }
         }
     }
+    return{
+        redirect:{
+            destination:"/",
+            permanent:false
+        }
+    }
+
 }

@@ -11,29 +11,23 @@ const Index = () => {
         </Layout>
     )
 }
-// export const getServerSideProps = async ({req,res})=>{
-//     const {token} = cookie.parse(req.headers.cookie);
-//     if(token){
-//         const employee = await jwt.verify(token,process.env.TOKEN_KEY);
-//           return{
-//                redirect:{
-//                    destination:`/${employee.role}`,
-//                    permanent:false
-//                }
-//            }
-         
-//     }
-//         console.log("No cookie");
-//         return{
-//             props:{
+export const getServerSideProps = async ({req,res})=>{
+    const {token} = cookie.parse(req.headers.cookie || " ");
+    if(token){
+        const employee = await jwt.verify(token,process.env.TOKEN_KEY);
+        if(employee.role === "admin"){
+            return{
+                props:{}
+            }
+        }         
+    }
+    return{
+        redirect:{
+            destination:`/`,
+            permanent:false
+        }
+    }
     
-//             },
-//             redirect:{
-//                 destination:`/`,
-//                 permanent:false
-//             }
-//         }
-    
-//  }
+ }
 
 export default (Index);
