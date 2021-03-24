@@ -13,11 +13,12 @@ export const InventoryTablePending = ({stocks})=>{
                     <th>Name</th>
                     <th>Price</th>
                     <th>Date</th>   
+                    <th>Status</th>
                 </tr>
             </thead>
             <tbody>
                 {stocks?.map(stock=>{
-                    if(!stock.approved){
+                    if(isToday(stock.date))
                         return(
                             <tr key={stock._id}>
                                 <td>{stock.branch}</td>
@@ -28,7 +29,7 @@ export const InventoryTablePending = ({stocks})=>{
                                 <td><strong>{!stock.submittedBy? "Pending" : "Approving"}</strong></td>
                             </tr>
                         )
-                    }
+                    
                 }  
                 )}
             </tbody>
