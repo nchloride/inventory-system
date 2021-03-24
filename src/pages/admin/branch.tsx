@@ -34,7 +34,6 @@ export const getServerSideProps = async ({req,res}) =>{
         const {token} = cookie.parse(req.headers.cookie);
         if(token){  
             const {role} = jwt.verify(token,process.env.TOKEN_KEY);
-            console.log(role);
             if(role ==="admin"){
                 const stores:any = await axios.get("http://localhost:3000/api/stores",
                                         {headers:{"authorization":`Bearer ${token}`}});

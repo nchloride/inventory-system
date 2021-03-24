@@ -5,6 +5,7 @@ import InventoryTablePending from "../../components/Admin/Inventory/InventoryTab
 import Layout from '../../Layout';
 import React,{useState} from 'react';
 import {GetServerSideProps} from "next";
+import cookie from "cookie"
 import StoreController from '../../utils/controllers/StoreController';
 function Inventory({stores,stocks})  {
     const [openAddForm,setOpenAddForm] = useState<boolean>(false);
@@ -22,9 +23,10 @@ function Inventory({stores,stocks})  {
         </Layout> 
     )
 }
-export async function getServerSideProps<GetServerSideProps>(context){
+export async function getServerSideProps({req,res}){
+    const {token} = cookie.parse(req.headers.cookie || "");
     try{
-        const fetchStore = await axios.get('http://localhost:3000/api/stores');
+        const fetchStore = await axios.get('http://localhost:3000/api/stores',{headers:{"authorization":`Bearer ${token}`}});
         const fetchStocks = await axios.get('http://localhost:3000/api/inventory');
         const [stores,stocks] = await axios.all([fetchStore,fetchStocks]);
         return{
