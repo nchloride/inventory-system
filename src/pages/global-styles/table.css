@@ -23,7 +23,7 @@ thead tr,tbody tr {
     color: rgb(94,94,94);
 }
 tbody{
-    overflow-y: scroll;
+    overflow: scroll;
     display: block;
     height: 100%;
 }   
