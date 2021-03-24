@@ -14,6 +14,8 @@ import "./global-styles/employees/index.css";
 import "./global-styles/employees/form.css";
 //Inventory Styles
 import "./global-styles/inventory/index.css"
+//Dashboard Styles
+import "./global-styles/dashboard/dashboard.css"
 //Login Form 
 import "./global-styles/login.css"
 //Modal
