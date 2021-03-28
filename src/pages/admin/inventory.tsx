@@ -26,17 +26,18 @@ function Inventory({stores,stocks})  {
 export async function getServerSideProps({req,res}){
     const {token} = cookie.parse(req.headers.cookie || "");
     try{
-        const fetchStore = await axios.get('http://localhost:3000/api/stores',{headers:{"authorization":`Bearer ${token}`}});
-        const fetchStocks = await axios.get('http://localhost:3000/api/inventory');
-        const [stores,stocks] = await axios.all([fetchStore,fetchStocks]);
+          const [stores,stocks] = await axios.all(
+            [
+                axios.get('http://localhost:3000/api/stores',{headers:{"authorization":`Bearer ${token}`}}),
+                axios.get('http://localhost:3000/api/inventory')
+            ]);
         return{
             props:{
                stores:stores.data,
                stocks:stocks.data
             }
         }
-    }
-    catch(error){
+    }catch(error){
         return{
             redirect:{
                 destination:"/",

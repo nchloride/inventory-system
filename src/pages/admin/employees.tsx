@@ -7,10 +7,10 @@ import { useState } from "react";
 import TokenController from '../../utils/controllers/TokenController';
 import cookie from "cookie"
 const jwt = require("jsonwebtoken");
-export default function Employees({employees,stores}){
+export default function Employees({employees,stores,user}){
     const [openModal,setOpenModal] = useState<boolean>(false)
     return(
-        <Layout>
+        <Layout user={user}>
             <div className="tab employees">
                 <div className="tab_title">
                     <h1>Employees page</h1>
@@ -25,7 +25,7 @@ export default function Employees({employees,stores}){
 export async function getServerSideProps({req,res}){
     const {token} = cookie.parse(req.headers.cookie || "");
     if(token){
-        const {role} = jwt.verify(token,process.env.TOKEN_KEY);
+        const {role,...user} = jwt.verify(token,process.env.TOKEN_KEY);
         if(role === "admin"){
             const employees = await axios.get("http://localhost:3000/api/employees");
             const stores = await axios.get("http://localhost:3000/api/stores",
@@ -33,7 +33,8 @@ export async function getServerSideProps({req,res}){
             return{
                 props:{
                     employees:employees.data,
-                    stores:stores.data
+                    stores:stores.data,
+                    user
                 }
             }
         }

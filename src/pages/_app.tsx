@@ -25,6 +25,7 @@ import { Provider } from "next-auth/client"
 
 function MyApp({ Component, pageProps }) {
 
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@500&display=swap" rel="stylesheet"></link>
   return (
       <Component {...pageProps} />
    )
