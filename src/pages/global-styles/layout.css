@@ -1,3 +1,14 @@
 .layout{
     display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+}
+.layout_main{
+    display: flex;
+    height: 95%;
+}
+.layout_header{
+    height: 5%;
+    background-color:rgb(0, 162, 255);
 }

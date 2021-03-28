@@ -9,7 +9,7 @@
     flex-direction: column;
     width: 20vw;
     align-items: center;
-    height: 100vh;
+    height: 100%;
     padding: 10px;
 }
 .side_navigation_bar>li{
