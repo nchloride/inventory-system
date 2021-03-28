@@ -13,7 +13,7 @@ import StoreIcon from '@material-ui/icons/Store';
 const navLinks = [
     {
         name:"Dashboard",
-        url:"",
+        url:"dashboard",
         Icon:DashboardIcon
     },
     {
