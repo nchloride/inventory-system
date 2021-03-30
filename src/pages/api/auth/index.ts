@@ -3,7 +3,7 @@ import {NextApiRequest,NextApiResponse} from "next";
 import nc from "next-connect";
 import jwt from 'jsonwebtoken';
 import bcrypt from "bcryptjs";
-import cookie from "cookie"
+import cookie from "cookie";
 
 import {session} from "next-session"
 const employeeDatabase = database.get("employees");
