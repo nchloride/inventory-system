@@ -1,5 +1,4 @@
 const jwt = require("jsonwebtoken");
-
 export default  class RoutesHandler{
     private router;
     constructor(router){
@@ -8,8 +7,8 @@ export default  class RoutesHandler{
     public async redirectRoute(token){
         try {
             const decodedToken = await jwt.verify(token,process.env.TOKEN_KEY);
-            document.cookie = `token=${token}`
             this.router.push(`/${decodedToken.role}`); 
+            document.cookie = `token=${token}`;
         } catch (error) {
             this.router.push("/");
         }
