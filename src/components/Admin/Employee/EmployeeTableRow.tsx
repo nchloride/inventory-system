@@ -33,7 +33,7 @@ const EmployeeTableRow = ({employee,handleDelete}:IEmployee) => {
                     <button onClick={()=>setIsOpen(true)} className="edit_button"><EditIcon/></button>
                 </td>
             </tr>
-            <EmployeeUpdateForm isOpen={isOpen} setIsOpen={setIsOpen}/>
+            <EmployeeUpdateForm isOpen={isOpen} setIsOpen={setIsOpen} employee={employee}/>
         </>
     )
 }

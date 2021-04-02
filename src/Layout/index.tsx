@@ -1,14 +1,12 @@
 import { useEffect } from "react";
 import NavigationBar from "../components/Admin/NavigationBar";
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 export const Layout = ({children,user})=>{
-    useEffect(()=>{
-        console.log("user: ",user);
-        
-    },[])
     return (
         <div className="layout">
             <div className="layout_header">
+                <AccountCircleIcon/>
                 <h1>{user.name}</h1>
             </div>
             <div className="layout_main">

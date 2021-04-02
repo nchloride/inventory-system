@@ -3,7 +3,6 @@ import cookie from "cookie";
 import { GetServerSideProps } from 'next';
 import isToday from "../../lib/isToday"
 import Layout from '../../Layout';
-import { log } from 'console';
 import React, { useEffect } from 'react';
 const jwt = require("jsonwebtoken");
 const Dashboard = ({stocks = [],employees=[],stores=[],user}) => {
@@ -12,8 +11,6 @@ const Dashboard = ({stocks = [],employees=[],stores=[],user}) => {
     const employeeCount = employees.length;
     const storesCount = stores.length;
     useEffect(()=>{
-        console.log(pendingStocks);
-        
     },[])
     return (
         <Layout user={user}>
@@ -42,13 +39,10 @@ const Dashboard = ({stocks = [],employees=[],stores=[],user}) => {
     )
 }
 export const getServerSideProps = async ({req,res})=>{
-    const {token} = cookie.parse(req.headers.cookie || " ");
+    const {token} = cookie.parse(req.headers.cookie);
     if(token){
         const employee = await jwt.verify(token,process.env.TOKEN_KEY);
         if(employee.role === "admin"){
-            // const stocks = await (await axios.get("http://localhost:3000/api/inventory")).data;
-            // const employees = await (await axios.get("http://localhost:3000/api/employees")).data;
-
             const [stocks,employees,stores] = await axios.all([
                 axios.get("http://localhost:3000/api/inventory"),
                 axios.get("http://localhost:3000/api/employees"),

@@ -4,7 +4,7 @@
     height: 100%;
     display: grid;
     grid-gap: 10px;
-    grid-template-columns: repeat(auto-fit,minmax(100px,400px));
+    grid-template-columns: repeat(auto-fit,minmax(100px,300px));
     grid-template-rows: repeat(auto-fit,minmax(100px,200px));
     justify-content: center;
     font-family: 'Lexend', sans-serif;

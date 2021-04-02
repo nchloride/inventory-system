@@ -5,6 +5,7 @@ class Stores{
     private storeAPIEndpoint:string ='/api/stores/';
     private routeHandler;
     private tokenHandler;
+    private token;
     constructor(router){
         this.routeHandler = new RoutesHandler(router);
     }
@@ -38,7 +39,11 @@ class Stores{
         const response = await fetch("/api/stores",{
             method:"POST",
             mode:"cors",
+            headers:{
+                "authorization": `Bearer ${TokenController.getCookie}`
+            },
             body:JSON.stringify(data),
+            
         });
         const result = await response.json();
         this.routeHandler.refreshRoute();

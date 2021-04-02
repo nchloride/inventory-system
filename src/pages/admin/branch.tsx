@@ -8,10 +8,10 @@ import React, { useState } from "react";
 import { useRefreshTable } from "../../components/customHooks/useRefreshTable";
 import cookie from "cookie"
 const jwt = require('jsonwebtoken');
-export const Branch = ({stores,employees}) => {
+export const Branch = ({stores,employees,user}) => {
     const [openAddForm,setOpenAddForm] = useState<boolean>(false);
     return (
-            <Layout>
+            <Layout user={user}>
                 <div className="tab branch">
                     <div className="tab_title">
                         <h1>Branch Page</h1>
@@ -33,7 +33,7 @@ export const getServerSideProps = async ({req,res}) =>{
     }
         const {token} = cookie.parse(req.headers.cookie);
         if(token){  
-            const {role} = jwt.verify(token,process.env.TOKEN_KEY);
+            const {role,...user} = jwt.verify(token,process.env.TOKEN_KEY);
             if(role ==="admin"){
                 const stores:any = await axios.get("http://localhost:3000/api/stores",
                                         {headers:{"authorization":`Bearer ${token}`}});
@@ -41,7 +41,8 @@ export const getServerSideProps = async ({req,res}) =>{
                 return{
                     props:{
                         stores:stores.data,
-                        employees:employees.data
+                        employees:employees.data,
+                        user
                     }
                 }
             }

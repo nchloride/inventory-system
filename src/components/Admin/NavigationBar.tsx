@@ -67,7 +67,7 @@ export const NavigationBar = () => {
                 )
             })}
                     <li onClick={TokenController.deleteToken}>
-                        <Link href='/'>
+                        <Link href='/admin'>
                             <a>
                                 <ExitToAppIcon/>
                                 <p>Sign out</p>

@@ -3,6 +3,8 @@ import React from "react";
 import StoreController from "../../../utils/controllers/StoreController";
 import { useRouter } from "next/router";
 import {useForm} from "react-hook-form";
+
+Modal.setAppElement("body");
 export const BranchForm  = ({open,setClose})=>{
     const router = useRouter();
     const storeController = new StoreController(router);

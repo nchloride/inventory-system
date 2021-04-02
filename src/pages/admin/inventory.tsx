@@ -7,11 +7,11 @@ import React,{useState} from 'react';
 import {GetServerSideProps} from "next";
 import cookie from "cookie"
 import StoreController from '../../utils/controllers/StoreController';
-function Inventory({stores,stocks})  {
+function Inventory({stores,stocks,user})  {
     const [openAddForm,setOpenAddForm] = useState<boolean>(false);
 
     return (
-        <Layout>
+        <Layout user={user}>
             <div className="tab inventory">
                 <div className="tab_title">
                     <h1>INVENTORY PAGE! </h1>
@@ -24,7 +24,7 @@ function Inventory({stores,stocks})  {
     )
 }
 export async function getServerSideProps({req,res}){
-    const {token} = cookie.parse(req.headers.cookie || "");
+    const {token,...user} = cookie.parse(req.headers.cookie || "");
     try{
           const [stores,stocks] = await axios.all(
             [
@@ -34,7 +34,8 @@ export async function getServerSideProps({req,res}){
         return{
             props:{
                stores:stores.data,
-               stocks:stocks.data
+               stocks:stocks.data,
+               user
             }
         }
     }catch(error){
