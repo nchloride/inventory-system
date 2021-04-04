@@ -21,14 +21,30 @@ import "./global-styles/login.css"
 //Modal
 import "./global-styles/modal.css"
 
-import { Provider } from "next-auth/client"
 
-function MyApp({ Component, pageProps }) {
+import Cookie from "cookie"
+import {createContext} from "react";
 
-<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@500&display=swap" rel="stylesheet"></link>
-  return (
-      <Component {...pageProps} />
-   )
+
+function MyApp({ Component, pageProps, token }) {
+   
+   const CookieProvider = createContext(token);
+
+   <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@500&display=swap" rel="stylesheet"></link>
+   return (
+      <CookieProvider.Provider value={token}>
+         <Component {...pageProps} />
+      </CookieProvider.Provider>
+      )
 }
-
+MyApp.getInitialProps  = async ({ctx}) =>{
+   console.log(ctx.req.headers.cookie);
+   const {token} = Cookie.parse(ctx.req.headers.cookie || "");
+   return{
+      props:{
+         token
+      }
+   }
+   
+}
 export default MyApp

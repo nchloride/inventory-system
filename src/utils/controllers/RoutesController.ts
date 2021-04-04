@@ -9,8 +9,6 @@ export default  class RoutesHandler{
         try {
             const decodedToken = await jwt.verify(token,process.env.TOKEN_KEY);
             this.router.push(`/${decodedToken.role}`); 
-            document.cookie = `token=${token}`;
-            
         } catch (error) {
             this.router.push("/");
         }

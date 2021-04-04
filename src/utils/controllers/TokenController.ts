@@ -11,7 +11,7 @@ export default new class TokenHandler{
         return token;
     }
     public async deleteToken(){
-        document.cookie = "token =;Expires= Thu, 01 Jan 1970 00:00:01 GMT;";
+        // document.cookie = "token =;Expires= Thu, 01 Jan 1970 00:00:01 GMT;";
         await fetch("/api/auth/logout");
     }
 

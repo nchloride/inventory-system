@@ -31,7 +31,7 @@ export const getServerSideProps = async ({req,res}) =>{
             permanent:false
         }
     }
-        const {token} = cookie.parse(req.headers.cookie);
+        const {token} = cookie.parse(req.headers.cookie || " ");
         if(token){  
             const {role,...user} = jwt.verify(token,process.env.TOKEN_KEY);
             if(role ==="admin"){

@@ -15,15 +15,18 @@ export default nc<NextApiRequest,NextApiResponse>()
             .then(employee=>{
                 bcrypt.compare(password,employee.password,(err,emp)=>{
                     if(emp){
-                        const authenticationToken = jwt.sign(employee,process.env.TOKEN_KEY);
+                        const authenticationToken =  jwt.sign(employee,process.env.TOKEN_KEY);
                         res.setHeader("Set-Cookie",cookie.serialize("token",authenticationToken,{
+                            maxAge:60*60*24,
                             httpOnly:true,
-                            sameSite:true,
-                            maxAge:60*60*24
+                            sameSite:`strict`,
+                            secure:true,
+                            path:'/'
                         }));
                         res.json(
                             {
-                                token:authenticationToken
+                                token:authenticationToken,
+                                route:employee.role
                             }
                         )
                     }

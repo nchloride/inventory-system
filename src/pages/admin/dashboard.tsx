@@ -11,6 +11,7 @@ const Dashboard = ({stocks = [],employees=[],stores=[],user}) => {
     const employeeCount = employees.length;
     const storesCount = stores.length;
     useEffect(()=>{
+        console.log(document.cookie)
     },[])
     return (
         <Layout user={user}>
@@ -39,7 +40,7 @@ const Dashboard = ({stocks = [],employees=[],stores=[],user}) => {
     )
 }
 export const getServerSideProps = async ({req,res})=>{
-    const {token} = cookie.parse(req.headers.cookie);
+    const {token} = cookie.parse(req.headers.cookie||"");
     if(token){
         const employee = await jwt.verify(token,process.env.TOKEN_KEY);
         if(employee.role === "admin"){

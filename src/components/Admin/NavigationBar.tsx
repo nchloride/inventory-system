@@ -45,7 +45,6 @@ export const NavigationBar = () => {
         if(TokenController.getCookie){
             TokenController.getCredentials().then(credential=>setName(credential))
         }
-        
     },[])
 
     return (
@@ -67,7 +66,7 @@ export const NavigationBar = () => {
                 )
             })}
                     <li onClick={TokenController.deleteToken}>
-                        <Link href='/admin'>
+                        <Link href='/'>
                             <a>
                                 <ExitToAppIcon/>
                                 <p>Sign out</p>

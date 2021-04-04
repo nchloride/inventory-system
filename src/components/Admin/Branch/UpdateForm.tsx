@@ -15,14 +15,25 @@ const UpdateForm = ({store:{_id,location,branch},setOpenUpdateForm,openUpdateFor
     const {handleSubmit,register,errors} = useForm();
     const [newLocation,setLocation] = useState<string>(location);
     const [newBranch,setBranch] = useState<string>(branch);
-
+    const [state,setState] = useState({
+        location,
+        branch
+    })
     Modal.setAppElement("body");
     
     const handleUpdate = (data:IUpdateData)=>{
+        console.log(data);
+        
         storeController.updateStore(data).then(res=>{
             setOpenUpdateForm(!openUpdateForm)
         })
-}
+    }
+    const handleOnChange = e => setState((storeState)=>{
+        return {
+            ...storeState,
+            [e.target.name]:e.target.value
+        }
+    })
     return (
         <Modal isOpen={openUpdateForm} className="modal_form">
             <div className="modal_title">
@@ -31,8 +42,8 @@ const UpdateForm = ({store:{_id,location,branch},setOpenUpdateForm,openUpdateFor
             </div>
             <form className="input__form" onSubmit={handleSubmit(handleUpdate)}>
                 <input type="text" name="_id" value={_id} ref={register({required:true})} readOnly></input>
-                <input type="text" name="branch" value={newBranch} ref={register({required:true})} onChange={(e)=>setBranch(e.target.value)}></input>
-                <input type="text" name="location" value={newLocation} ref={register({required:true})} onChange={(e)=>setLocation(e.target.value)}></input>
+                <input type="text" name="branch" value={state.branch} ref={register({required:true})} onChange={handleOnChange}></input>
+                <input type="text" name="location" value={state.location} ref={register({required:true})} onChange={handleOnChange}></input>
                 <input type="submit"></input>
             </form>
         </Modal>

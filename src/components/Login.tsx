@@ -23,7 +23,7 @@ const Login = () => {
         .then(res=> res.json())
         .then(data=>{
             if(data.token){
-                routesHandler.redirectRoute(data.token);
+                 routesHandler.redirectRoute(data.token);
                 setError("");
             }else{
                 setError("Incorrect username or password");
