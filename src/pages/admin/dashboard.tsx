@@ -3,16 +3,14 @@ import cookie from "cookie";
 import { GetServerSideProps } from 'next';
 import isToday from "../../lib/isToday"
 import Layout from '../../Layout';
-import React, { useEffect } from 'react';
+import React, { useEffect,useContext } from 'react';
 const jwt = require("jsonwebtoken");
 const Dashboard = ({stocks = [],employees=[],stores=[],user}) => {
     const pendingStocks= stocks.filter(stock=> !stock.submittedBy);
     const pendingStocksToday= stocks.filter(stock=> isToday(stock.date));
     const employeeCount = employees.length;
     const storesCount = stores.length;
-    useEffect(()=>{
-        console.log(document.cookie)
-    },[])
+
     return (
         <Layout user={user}>
             <div className="tab dashboard">

@@ -8,7 +8,7 @@ interface IEmployeeModal{
 
 Modal.setAppElement("body");
 export const EmployeeUpdateForm:React.FC<IEmployeeModal> = ({isOpen,setIsOpen,employee}) =>{
-    const {name,username,_id} = employee;
+    const {name,username,_id,rate,branch} = employee;
     return(
         <Modal isOpen ={isOpen} className="modal_form employee_update_modal">
             <div className="modal_title">
