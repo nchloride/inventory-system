@@ -6,15 +6,17 @@ class Stores{
     private routeHandler;
     private tokenHandler;
     private token;
-    constructor(router){
+
+    constructor(router,cookie){
         this.routeHandler = new RoutesHandler(router);
+        this.token = cookie;
     }
     public async deleteStore(_id){
         const res = await fetch(`${this.storeAPIEndpoint}${_id}`,{
             method:"DELETE",
             mode:"cors",
             headers:{
-                "authorization": `Bearer ${TokenController.getCookie}`
+                "authorization": `Bearer ${this.token}`
             }
         });
         const data = await res.json();
@@ -22,14 +24,14 @@ class Stores{
         return data;
         
     }
-    public async getStores(){
-        return  await (await fetch(`${this.storeAPIEndpoint}`)).json();
-    }
     public async updateStore(data){
         const updateData = await fetch(this.storeAPIEndpoint,{
             method:'PATCH',
             mode:"cors",
             body:JSON.stringify(data),
+            headers:{
+                "authorization": `Bearer ${this.token}`
+            },
         })
         const response = await updateData.json();
         this.routeHandler.refreshRoute();
@@ -40,7 +42,7 @@ class Stores{
             method:"POST",
             mode:"cors",
             headers:{
-                "authorization": `Bearer ${TokenController.getCookie}`
+                "authorization": `Bearer ${this.token}`
             },
             body:JSON.stringify(data),
             
