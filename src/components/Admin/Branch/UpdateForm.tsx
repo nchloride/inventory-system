@@ -1,8 +1,10 @@
-import React,{useState} from 'react';
+import React,{useState,useContext} from 'react';
 import Modal from "react-modal";
 import {useForm} from "react-hook-form";
 import StoreController from "../../../utils/controllers/StoreController";
 import { useRouter } from 'next/router';
+import {CookieContext} from "../../../utils/context/CookieContext"
+
 interface IUpdateData{
     _id:string;
     branch:string;
@@ -10,8 +12,10 @@ interface IUpdateData{
 }
 
 const UpdateForm = ({store:{_id,location,branch},setOpenUpdateForm,openUpdateForm}) => {
+    const token = useContext(CookieContext);
+    
     const router = useRouter();
-    const storeController = new StoreController(router);
+    const storeController = new StoreController(router,token);
     const {handleSubmit,register,errors} = useForm();
     const [newLocation,setLocation] = useState<string>(location);
     const [newBranch,setBranch] = useState<string>(branch);

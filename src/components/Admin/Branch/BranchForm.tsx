@@ -1,13 +1,17 @@
 import Modal from "react-modal";
-import React from "react";
+import React,{useContext, useEffect} from "react";
 import StoreController from "../../../utils/controllers/StoreController";
 import { useRouter } from "next/router";
 import {useForm} from "react-hook-form";
+import {CookieContext} from "../../../utils/context/CookieContext"
 
 Modal.setAppElement("body");
+
 export const BranchForm  = ({open,setClose})=>{
+    const token = useContext(CookieContext);
+
     const router = useRouter();
-    const storeController = new StoreController(router);
+    const storeController = new StoreController(router,token);
     const {handleSubmit,register,reset} = useForm<FormData>();
     
     interface IData {
