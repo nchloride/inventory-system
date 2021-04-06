@@ -22,28 +22,27 @@ import "./global-styles/login.css"
 import "./global-styles/modal.css"
 
 
-import Cookie from "cookie"
-import {createContext} from "react";
+import Cookie from "cookie";
+import {CookieContext} from "../utils/context/CookieContext";
+import {createContext, useEffect} from "react";
+
 
 
 function MyApp({ Component, pageProps, token }) {
+ 
    
-   const CookieProvider = createContext(token);
-
    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@500&display=swap" rel="stylesheet"></link>
    return (
-      <CookieProvider.Provider value={token}>
+      <CookieContext.Provider value ={token}>
          <Component {...pageProps} />
-      </CookieProvider.Provider>
+      </CookieContext.Provider>
       )
 }
 MyApp.getInitialProps  = async ({ctx}) =>{
-   console.log(ctx.req.headers.cookie);
+   console.log("_app: ",ctx.req.headers.cookie);
    const {token} = Cookie.parse(ctx.req.headers.cookie || "");
    return{
-      props:{
-         token
-      }
+      token
    }
    
 }
