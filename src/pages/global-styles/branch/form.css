@@ -1,3 +1,26 @@
-.branch__form{
-    
+.branch_form{
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 100%;
+}
+.branch_form label{
+    align-self: flex-start;
+    font-size: 1.1rem;
+    padding: 5px;
+    font-weight: bold;
+}
+.branch_form input{
+    width: 98%;
+    padding: 5px;
+    margin: 5px;
+}
+ #_id{
+    background-color: rgba(0, 0, 0, 0.1);
+    outline: none;
+    border: none;
+}
+.branch_form input[type=submit]{
+    align-self: center;
+    width: 99%;
+   
 }
