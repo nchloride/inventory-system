@@ -39,7 +39,6 @@ function MyApp({ Component, pageProps, token }) {
       )
 }
 MyApp.getInitialProps  = async ({ctx}) =>{
-   console.log("_app: ",ctx.req.headers.cookie);
    const {token} = Cookie.parse(ctx.req.headers.cookie || "");
    return{
       token
