@@ -1,17 +1,14 @@
 import Modal from "react-modal";
 import React,{useContext, useEffect} from "react";
-import StoreController from "../../../utils/controllers/StoreController";
-import { useRouter } from "next/router";
-import {useForm} from "react-hook-form";
-import {CookieContext} from "../../../utils/context/CookieContext"
 
+
+import {useForm} from "react-hook-form";
+
+import {BranchService} from "../../../pages/admin/branch"
 Modal.setAppElement("body");
 
 export const BranchForm  = ({open,setClose})=>{
-    const token = useContext(CookieContext);
-
-    const router = useRouter();
-    const storeController = new StoreController(router,token);
+    const StoreController = useContext(BranchService);
     const {handleSubmit,register,reset} = useForm<FormData>();
     
     interface IData {
@@ -24,7 +21,7 @@ export const BranchForm  = ({open,setClose})=>{
 
     const onSubmit = async (data:IData) =>{
         try{
-            storeController.addStore(data).then(_=>{
+            StoreController.addStore(data).then(_=>{
                 reset();
                 closeModal();
             })
@@ -35,17 +32,19 @@ export const BranchForm  = ({open,setClose})=>{
     }
 
     return (
-        <Modal isOpen={open}  className="modal_form">
+        <Modal isOpen={open}  className="modal_form ">
             <div className="modal_title">
                 <h1>Add Branch</h1>
                 <button onClick={closeModal} className="close__button">X</button>
             </div>
-            <form onSubmit={handleSubmit(onSubmit)} className="input__form branch__form">
+            <form onSubmit={handleSubmit(onSubmit)} className="input__form branch_form">
+                <label>Name:</label>
                 <input name="branch"
                 type="text" 
                 ref={register({required:true})}
                 placeholder="Enter branch name"
                 />
+                <label>Location:</label>
                 <input name="location"
                 type="text" 
                 ref={register({required:true})}
