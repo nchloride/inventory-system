@@ -13,8 +13,9 @@
 }
 .employee__form input,.employee__form select{
     margin: 0%;
-    max-width: 99%;
+    max-width: 98%;
 }
+
 .employee_info, .employee_work_info, .employee_credentials{
     display: flex;
     width: 100%;
@@ -27,5 +28,5 @@
     display: flex;
     justify-content: space-around;
     flex-direction: column;
-    width: 90%;
+    width: 100%;
 }
