@@ -1,9 +1,9 @@
 import {NextApiRequest,NextApiResponse} from "next";
 import nc from "next-connect"
-import employeeAuth from "../../../utils/validations/employeeAuth";
+import {postSchema,updateSchema} from "../../../utils/validations/employeeSchema";
 import database from "../../../utils/config/database";
 import EncryptionController from "../../../utils/controllers/EncryptionController";
-const bcrypt = require('bcryptjs');
+import bcrypt from "bcryptjs"
 // export default async function (req:NextApiRequest,res:NextApiResponse){
 //     res.json({message:"Working!"})
 
@@ -18,7 +18,7 @@ export default nc<NextApiRequest,NextApiResponse>()
         try{
             console.log(req.body);
             
-            const validatedEmployee = await employeeAuth.validateAsync(req.body);
+            const validatedEmployee = await postSchema.validateAsync(req.body);
             const {password,username} = req.body;
             const hashedPassword = await EncryptionController.getEncryptedPassword(password);
             employeeDb.findOne({username}).then((employee)=>{
@@ -48,5 +48,34 @@ export default nc<NextApiRequest,NextApiResponse>()
         }
         catch(e){
             res.json(e)
+        }
+    })
+    .patch(async(req,res)=>{
+        const {_id,name,address,username,branch,rate,newPassword:password} = req.body;
+        const hashedPassword = await EncryptionController.getEncryptedPassword(password);
+        try {
+            const validatedUser = await updateSchema
+                                            .validateAsync(
+                                                {
+                                                    name,
+                                                    address,
+                                                    branch,
+                                                    rate,
+                                                    ...(password && {password:hashedPassword}),
+                                                    username,
+                                                }
+                                            );
+            employeeDb.findOneAndUpdate({_id},{$set:validatedUser})
+                .then((updatedDoc)=>{
+                    res.json({
+                        message:"Employee Updated!",
+                        updatedDoc
+                    })
+                }
+            )
+        
+        }
+        catch(error) {
+            res.json(error)
         }
     })
