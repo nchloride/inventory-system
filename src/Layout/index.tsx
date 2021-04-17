@@ -6,7 +6,7 @@ export const Layout = ({children,user})=>{
     return (
         <div className="layout">
             <div className="layout_header">
-                <AccountCircleIcon/>
+                <AccountCircleIcon className="logo"/>
                 <h1>{user.name}</h1>
             </div>
             <div className="layout_main">

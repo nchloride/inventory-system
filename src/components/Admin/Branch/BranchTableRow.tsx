@@ -1,10 +1,10 @@
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import EmployeeController from '../../../utils/controllers/EmployeeController';
 import EditIcon from '@material-ui/icons/Edit';
-import React, { useState,useEffect } from 'react';
+import React, { useState,useEffect, useContext } from 'react';
 import UpdateForm from './UpdateForm';
 import { useRouter } from 'next/router';
-
+import {CookieContext} from "../../../utils/context/CookieContext"
 interface IStore {
     _id:string;
     branch:string;
@@ -13,11 +13,12 @@ interface IStore {
 }
 
 const BranchTableRow = ({store,handleDelete}) => {
+    const token = useContext(CookieContext);
     const router = useRouter();
     const {_id,branch,location}:IStore = store;
     const [openUpdateForm,setOpenUpdateForm] = useState<boolean>(false);
     const [employeeCount,setEmployeeCount] = useState<number>();
-    const employeeController = new EmployeeController(router);
+    const employeeController = new EmployeeController(router,token);
     const deleteOnClick = () =>{
         handleDelete(store._id,store.branch);
     }
