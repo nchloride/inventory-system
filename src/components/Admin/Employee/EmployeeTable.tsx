@@ -2,10 +2,13 @@ import { useRouter } from 'next/router';
 import React, { useState,useEffect,useContext } from 'react'
 import EmployeeController from '../../../utils/controllers/EmployeeController';
 import EmployeeTableRow from './EmployeeTableRow';
+import {EmployeeService} from "../../../pages/admin/employees"
+
 
 const EmployeeTable = ({employees}) => {
+    const employeeHandler = useContext(EmployeeService);
     const router = useRouter()
-    const employeeHandler = new EmployeeController(router);
+
     const handleDelete = (id:string,name:string)=>{
         if(confirm("Are you sure?")){
             if(prompt(`Please type ${name} to continue`))

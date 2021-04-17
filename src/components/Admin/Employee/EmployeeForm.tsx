@@ -1,17 +1,12 @@
-import EmployeeController from '../../../utils/controllers/EmployeeController';
 import Modal from "react-modal";
 import React, { useEffect, useState,useContext } from 'react';
-import { route } from 'next/dist/next-server/server/router';
-import StoreController from "../../../utils/controllers/StoreController"
-import { useRouter } from 'next/router';
 import {useForm} from "react-hook-form";
-
+import {EmployeeService} from "../../../pages/admin/employees"
 
 
 const EmployeeForm = ({stores,openModal,setOpenModal}) => {
-    const router = useRouter();
+    const employeeController = useContext(EmployeeService);
     const {errors,handleSubmit,register,reset} = useForm();
-    const employeeController = new EmployeeController(router);
     const [inputError,setInputError] = useState({
         alreadyExist:false,
     })
@@ -108,10 +103,8 @@ const EmployeeForm = ({stores,openModal,setOpenModal}) => {
                         </select>
                     </div>
                 </div>
-               
-                    <label>Rate</label>
-                    <input type="number" name="rate" placeholder="Rate" ref={register({required:true})}></input>
-                
+                <label>Rate</label>
+                <input type="number" name="rate" placeholder="Rate" ref={register({required:true})}></input>
                 <input type="submit" value="Add employee"></input>
                 {inputError.alreadyExist &&"Employee already exist"}
             </form>
