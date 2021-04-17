@@ -1,12 +1,17 @@
-import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-import EditIcon from '@material-ui/icons/Edit';
+
 import isToday from "../../../lib/isToday";
 import { number } from "joi";
-import {useState} from "react"
+import {useEffect, useState} from "react"
+import InventoryTableRow from "./InventoryTableRow";
 export const InventoryTablePending = ({stocks})=>{
-    const [storeCount,setStoreCount] = useState<number>(2);
-    const newStocks = stocks.slice(0,storeCount);
+    const [storeCount,setStoreCount] = useState<number>(10);
+    const newStocks = stocks.filter(stock=> isToday(stock.date)).slice(0,storeCount);
 
+    useEffect(() => {
+        console.log(newStocks);
+        
+    }, [])
+    
     const incrementStocks = e => setStoreCount(e.target.value);
     return (
         <>
@@ -24,21 +29,10 @@ export const InventoryTablePending = ({stocks})=>{
                 </thead>
                 <tbody>
                     {newStocks?.map(stock=>{
-                        if(isToday(stock.date))
-                        return(
-                            <tr key={stock._id}>
-                                    <td>{stock.branch}</td>
-                                    <td>{stock.stocks}</td>
-                                    <td>{stock.name}</td>
-                                    <td>{stock.price}</td>
-                                    <td>{stock.date.slice(0,10)}</td>
-                                    <td><strong>{!stock.submittedBy? "Pending" : "Approving"}</strong></td>
-                                    <td>
-                                        {/* <button onClick={()=>handleDelete(stock._id,stock.name)}  className="delete_button"><DeleteForeverIcon/></button> */}
-                                        <button className="edit_button"><EditIcon/></button>
-                                    </td>
-                                </tr>
-                            )
+                        // if(isToday(stock.date))
+                            return(
+                                <InventoryTableRow stock ={stock}/>
+                             )
                             
                         }  
                         )}
@@ -46,7 +40,7 @@ export const InventoryTablePending = ({stocks})=>{
             </table>
             <div className="pagination">
                 <p>Stocks number</p>
-                <input type="number" value={storeCount} min="5" max={stocks.length} onChange={incrementStocks}></input>
+                <input type="number" value={storeCount} min="1" max={stocks.length} onChange={incrementStocks}></input>
             </div>
         </>
     )

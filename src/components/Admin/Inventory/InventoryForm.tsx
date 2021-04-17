@@ -1,23 +1,22 @@
 import InventoryController from "../../../utils/controllers/InventoryController";
 import Modal from "react-modal";
-import {useState} from "react";
+import {useState,useContext} from "react";
 import {useForm} from "react-hook-form"
-import {useRouter} from "next/router";
 
+import {InventoryService} from "../../../pages/admin/inventory"
 
 export default function InventoryForm({branches,modalOpen,setModalOpen}){
     const {handleSubmit,register,reset} = useForm();
-    const router = useRouter();
-    const inventory = new InventoryController(router);
-
+    const inventory = useContext(InventoryService);
     const onFormSubmit = async(data:any) =>{
         inventory.setStocks(data)
             .then(data=>{
+                console.log(data);
                 reset()
             }
         );
     }
-
+    Modal.setAppElement("body");
     const closeModal = () => setModalOpen(!modalOpen)
     return (
         <Modal isOpen={modalOpen} className="modal_form">
@@ -29,7 +28,12 @@ export default function InventoryForm({branches,modalOpen,setModalOpen}){
                 <select name="branch" ref={register({required:true,validate:{notzero:value=> value!=="0"}})}> 
                     <option value="0">---Select a Branch---</option>
                     {branches.map(({location,branch,_id})=>(
-                        <option key={_id} value={branch}>{branch}</option>
+                        <option
+                            key={_id}
+                            value={branch}
+                        >
+                            {branch}
+                        </option>
                     ))}
                 </select>
                 <input type="number" name="stocks" placeholder="Stocks" ref={register({required:true})} ></input>
