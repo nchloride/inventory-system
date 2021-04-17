@@ -1,21 +1,32 @@
 import RoutesHandler from "./RoutesController";
 import TokenController from "./TokenController";
 
+interface IUpdateData{
+    name:string,
+    address:string,
+    username:string,
+    newPassword:string,
+    branch:string,
+    rate:number
+
+}
 export  class EmployeeController{
     private employeeEndpoint = "/api/employees/";
     private routeHandler;
-    constructor(router){
+    private token;
+    constructor(router, token){
         this.routeHandler = new RoutesHandler(router);
+        this.token=token;
     }
-    public async setEmployee (employee){
+    private async fetchData(data = [],method:string,endpoint = this.employeeEndpoint){
         try{
-            const res = await fetch(`${this.employeeEndpoint}`,{
-            method:"POST",
+            const res = await fetch(endpoint,{
+            method,
             mode:"cors",
-            body:JSON.stringify(employee),
+            body: data && JSON.stringify(data),
             headers:{
                 "Content-Type":"application/json",
-                "Authorization":`Bearer ${TokenController.getCookie}`
+                "Authorization":`Bearer ${this.token}`
             }
             })
             this.routeHandler.refreshRoute();
@@ -24,35 +35,18 @@ export  class EmployeeController{
         catch(e){
             return e;
         }
-
+    }
+    public async setEmployee (employee){
+        return this.fetchData(employee,"POST");
     }
     public async getEmployees(){
-        try {
-            const employees = await fetch(this.employeeEndpoint,{
-                method:"GET",
-                mode:'cors',
-                headers:{
-                    "Content-Type":"application/json",
-                    "Authorization":`Bearer ${TokenController.getCookie}`
-                }
-            });
-            return await employees.json();
-        } catch (error) {
-            return error
-        }
+        return this.fetchData(null,"GET");
     }
     public async deleteEmployee(id:string){
-        try {
-            const res = await fetch(`${this.employeeEndpoint}${id}`,{
-                method:"DELETE",
-                mode:"cors"
-            });
-            const data = await res.json();
-            this.routeHandler.refreshRoute();
-            return data;
-        } catch (error) {
-            return error;
-        }
+        return this.fetchData([],"DELETE",`${this.employeeEndpoint}${id}`)
+    }
+    public async updateEmployee(data){
+        return this.fetchData(data,"PATCH");
     }
 
 } 
