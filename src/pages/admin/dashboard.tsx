@@ -43,9 +43,21 @@ export const getServerSideProps = async ({req,res})=>{
         const employee = await jwt.verify(token,process.env.TOKEN_KEY);
         if(employee.role === "admin"){
             const [stocks,employees,stores] = await axios.all([
-                axios.get("http://localhost:3000/api/inventory"),
-                axios.get("http://localhost:3000/api/employees"),
-                axios.get("http://localhost:3000/api/stores",{headers:{"authorization":`Bearer ${token}`}})
+                axios.get("http://localhost:3000/api/inventory",
+                    {
+                        headers:{"authorization":`Bearer ${token}`}
+                    }
+                ),
+                axios.get("http://localhost:3000/api/employees",
+                    {
+                        headers:{"authorization":`Bearer ${token}`}
+                    }
+                ),
+                axios.get("http://localhost:3000/api/stores",
+                    {
+                        headers:{"authorization":`Bearer ${token}`}
+                    }
+                )
             ])
             return{
                 props:{

@@ -1,35 +1,56 @@
 import AddIcon from '@material-ui/icons/Add';
 import axios from "axios";
+import cookie from "cookie";
+import {CookieContext} from "../../utils/context/CookieContext";
 import InventoryForm from '../../components/Admin/Inventory/InventoryForm';
 import InventoryTablePending from "../../components/Admin/Inventory/InventoryTablePending";
 import Layout from '../../Layout';
-import React,{useState} from 'react';
-import {GetServerSideProps} from "next";
-import cookie from "cookie"
-import StoreController from '../../utils/controllers/StoreController';
+import {useRouter} from "next/router"
+
+import React,{useState,createContext,useContext} from 'react';
+import InventoryController from "../../utils/controllers/InventoryController";
+
+const jwt = require("jsonwebtoken");
+export const InventoryService = createContext(null);
+
 function Inventory({stores,stocks,user})  {
     const [openAddForm,setOpenAddForm] = useState<boolean>(false);
-
+    const token = useContext(CookieContext);
+    const router = useRouter();
+    const inventoryController = new InventoryController(router,token);
     return (
-        <Layout user={user}>
-            <div className="tab inventory">
-                <div className="tab_title">
-                    <h1>INVENTORY PAGE! </h1>
-                    <button onClick={()=>setOpenAddForm(!openAddForm)} className="add_data"><AddIcon/>Add Inventory</button>
+        <InventoryService.Provider value={inventoryController}>
+            <Layout user={user}>
+                <div className="tab inventory">
+                    <div className="tab_title">
+                        <h1>INVENTORY PAGE! </h1>
+                        <button onClick={()=>setOpenAddForm(!openAddForm)} className="add_data"><AddIcon/>Add Inventory</button>
+                    </div>
+                    <InventoryTablePending stocks={stocks}/>
+                    <InventoryForm modalOpen={openAddForm} setModalOpen={setOpenAddForm} branches={stores}/>
                 </div>
-                <InventoryTablePending stocks={stocks}/>
-                <InventoryForm modalOpen={openAddForm} setModalOpen={setOpenAddForm} branches={stores}/>
-            </div>
-        </Layout> 
+            </Layout> 
+        </InventoryService.Provider>
     )
 }
 export async function getServerSideProps({req,res}){
-    const {token,...user} = cookie.parse(req.headers.cookie || "");
-    try{
-          const [stores,stocks] = await axios.all(
+    const {token} = cookie.parse(req.headers.cookie || "");
+    if(token)
+    {
+        const {role,...user} = jwt.verify(token,process.env.TOKEN_KEY);
+        try{
+            const [stores,stocks] = await axios.all(
             [
-                axios.get('http://localhost:3000/api/stores',{headers:{"authorization":`Bearer ${token}`}}),
-                axios.get('http://localhost:3000/api/inventory')
+                axios.get('http://localhost:3000/api/stores',
+                        {
+                            headers:{"authorization":`Bearer ${token}`}
+                        }
+                    ),
+                axios.get('http://localhost:3000/api/inventory',
+                        {
+                            headers:{"authorization":`Bearer ${token}`}
+                        }
+                    )
             ]);
         return{
             props:{
@@ -38,11 +59,12 @@ export async function getServerSideProps({req,res}){
                user
             }
         }
-    }catch(error){
-        return{
-            redirect:{
-                destination:"/",
-                permanent:false
+        }catch(error){
+            return{
+                redirect:{
+                    destination:"/",
+                    permanent:false
+                }
             }
         }
     }
