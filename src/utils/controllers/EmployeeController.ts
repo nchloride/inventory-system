@@ -30,7 +30,7 @@ export  class EmployeeController{
             }
             })
             this.routeHandler.refreshRoute();
-           return await res.json();
+            return await res.json();
         }
         catch(e){
             return e;

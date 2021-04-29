@@ -7,7 +7,7 @@ const postSchema = Joi.object({
     address:Joi.string().required(),
     branch:Joi.string().required(),
     rate:Joi.number().required(),
-    password:Joi.string().required,
+    password:Joi.string().required(),
     username:Joi.string().required(),
     role:Joi.string().required(),
 })

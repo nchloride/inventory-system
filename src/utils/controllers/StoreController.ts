@@ -1,6 +1,14 @@
 import RoutesHandler from "./RoutesController";
 import TokenController from "./TokenController";
 
+enum EMethods{
+    get = 'GET',
+    post ='POST',
+    put ='PUT',
+    delete = 'DELETE',
+    patch= 'PATCH'
+}
+
 class Stores{
     private storeAPIEndpoint:string ='/api/stores/';
     private routeHandler;
@@ -11,45 +19,33 @@ class Stores{
         this.routeHandler = new RoutesHandler(router);
         this.token = cookie;
     }
+    private async fetchData<T>(body:Partial<T>,endpoint:string,method:EMethods){
+        try {
+            const res = await fetch(endpoint,{
+                method,
+                mode:"cors",
+                headers:{
+                    "authorization": `Bearer ${this.token}`
+                },
+                ...(body && {body:JSON.stringify(body)})
+            });
+            const data = await res.json();
+
+            this.routeHandler.refreshRoute();
+
+            return data;
+        } catch (error) {
+            return error
+        }
+    }
     public async deleteStore(_id){
-        const res = await fetch(`${this.storeAPIEndpoint}${_id}`,{
-            method:"DELETE",
-            mode:"cors",
-            headers:{
-                "authorization": `Bearer ${this.token}`
-            }
-        });
-        const data = await res.json();
-        this.routeHandler.refreshRoute();
-        return data;
-        
+        return await this.fetchData(null,`${this.storeAPIEndpoint}${_id}`,EMethods.delete)
     }
     public async updateStore(data){
-        const updateData = await fetch(this.storeAPIEndpoint,{
-            method:'PATCH',
-            mode:"cors",
-            body:JSON.stringify(data),
-            headers:{
-                "authorization": `Bearer ${this.token}`
-            },
-        })
-        const response = await updateData.json();
-        this.routeHandler.refreshRoute();
-        return response;
+        return await this.fetchData(data,this.storeAPIEndpoint,EMethods.patch);
     }
     public async addStore(data){
-        const response = await fetch("/api/stores",{
-            method:"POST",
-            mode:"cors",
-            headers:{
-                "authorization": `Bearer ${this.token}`
-            },
-            body:JSON.stringify(data),
-            
-        });
-        const result = await response.json();
-        this.routeHandler.refreshRoute();
-        return result;
+        return await this.fetchData(data,this.storeAPIEndpoint,EMethods.post)
     }
 }
 export default Stores;

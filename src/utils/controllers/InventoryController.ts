@@ -1,5 +1,14 @@
 
 import RoutesController from "./RoutesController"
+
+
+enum EMethods{
+    get = 'GET',
+    post ='POST',
+    put ='PUT',
+    delete = 'DELETE',
+    patch= 'PATCH'
+}
 export default  class InventoryController{
     private apiEndpoint:string = '/api/inventory';
     private routesController;
@@ -8,17 +17,16 @@ export default  class InventoryController{
         this.routesController =new RoutesController(router);
         this.token = token
     }
-    
-    public async setStocks(data){
+    private async fetchData<T>(data:Partial<T>,endpoint:string,method:EMethods){
         try{
             const res = await fetch(this.apiEndpoint,{
-                method:"POST",
+                method,
                 mode:"cors",
                 headers:{
                     "Content-Type": "application/json",
                     "authorization": `Bearer ${this.token}`
                 },
-                body:JSON.stringify(data)        
+                ...(data && {body:JSON.stringify(data)})
             });
             const responseData = await res.json();
             
@@ -31,5 +39,8 @@ export default  class InventoryController{
         catch(error){
             return error
         }
+    }
+    public async setStocks(data){
+        return await this.fetchData(data,this.apiEndpoint,EMethods.post)
     }
 }
