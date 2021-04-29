@@ -52,3 +52,6 @@ td .delete_button{
 td .edit_button{
     color: blue;
 }
+td .accept_button{
+    color: green;
+}

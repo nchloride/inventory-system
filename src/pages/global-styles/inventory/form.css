@@ -1,0 +1,9 @@
+.inventory_form{
+    width: clamp(80%,95%,100%);
+}   
+.inventory_form>label{
+    padding: 0%;
+}   
+.inventory_form>input[type=submit]{
+    width: 100%;
+}   

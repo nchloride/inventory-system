@@ -56,10 +56,15 @@
     width: 50%;
     justify-content: space-between;
 }
+.inventory_modal{
+    height: clamp(50%,40%,70%);
+    width: clamp(60%,50%,90%);
+    justify-content: space-around;
+}
 
 @media only screen and (max-width: 1000px){
-    .modal_form{
+    /* .modal_form{
         width: 90%;
         height: 80%;
-    }
+    } */
 }
