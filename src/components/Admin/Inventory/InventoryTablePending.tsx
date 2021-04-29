@@ -1,18 +1,16 @@
 
 import isToday from "../../../lib/isToday";
-import { number } from "joi";
 import {useEffect, useState} from "react"
 import InventoryTableRow from "./InventoryTableRow";
+
+
 export const InventoryTablePending = ({stocks})=>{
+
     const [storeCount,setStoreCount] = useState<number>(10);
     const newStocks = stocks.filter(stock=> isToday(stock.date)).slice(0,storeCount);
-
-    useEffect(() => {
-        console.log(newStocks);
-        
-    }, [])
-    
     const incrementStocks = e => setStoreCount(e.target.value);
+
+    
     return (
         <>
             <table>
@@ -31,7 +29,7 @@ export const InventoryTablePending = ({stocks})=>{
                     {newStocks?.map(stock=>{
                         // if(isToday(stock.date))
                             return(
-                                <InventoryTableRow stock ={stock}/>
+                                <InventoryTableRow key={stock._id} stock ={stock}/>
                              )
                             
                         }  

@@ -1,6 +1,9 @@
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import EditIcon from '@material-ui/icons/Edit';
-import React from 'react';
+import DeleteForever from '@material-ui/icons/DeleteForever';
+import Check from '@material-ui/icons/Check';
+import React, { useState } from 'react';
+import InventoryUpdateForm from './UpdateForm';
 
 interface IStock{
     stock:{
@@ -14,20 +17,30 @@ interface IStock{
     }
 }
 
-export const InventoryTableRow:React.FC<Partial<IStock>>= ({stock}) =>{
+export const InventoryTableRow:React.FC<IStock>= ({stock}) =>{
+    const [modalOpen,setModalOpen] = useState<boolean>(false);
+
+    const openModal = () => setModalOpen(true);
     return(
-        <tr key={stock._id}>
-            <td>{stock.branch}</td>
-            <td>{stock.stocks}</td>
-            <td>{stock.name}</td>
-            <td>{stock.price}</td>
-            <td>{stock.date.slice(0,10)}</td>
-            <td><strong>{!stock.submittedBy? "Pending" : "Approving"}</strong></td>
-            <td>
-                {/* <button onClick={()=>handleDelete(stock._id,stock.name)}  className="delete_button"><DeleteForeverIcon/></button> */}
-                <button className="edit_button"><EditIcon/></button>
-            </td>
-        </tr>
+        <>
+            <tr key={stock._id}>
+                <td>{stock.branch}</td>
+                <td>{stock.stocks}</td>
+                <td>{stock.name}</td>
+                <td>{stock.price}</td>
+                <td>{stock.date.slice(0,10)}</td>
+                <td><strong>{!stock.submittedBy? "Pending" : "Approving"}</strong></td>
+                <td>
+                    {/* <button onClick={()=>handleDelete(stock._id,stock.name)}  className="delete_button"><DeleteForeverIcon/></button> */}
+                    <button className="delete_button"><DeleteForever/></button>
+                    <button className="edit_button" onClick={openModal}><EditIcon/></button>
+                    {stock.submittedBy && <button className="accept_button"><Check/></button> }
+                
+                    
+                </td>
+            </tr>
+            <InventoryUpdateForm stock={stock} modalOpen={modalOpen} setModalOpen={setModalOpen}/>
+        </>
     )
 }
 export default InventoryTableRow
