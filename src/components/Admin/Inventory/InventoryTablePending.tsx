@@ -3,9 +3,15 @@ import isToday from "../../../lib/isToday";
 import {useEffect, useState} from "react"
 import InventoryTableRow from "./InventoryTableRow";
 
+enum EInterval{
+    all='all',
+    day='day',
+    week='week',
+    month='month'
+}
 
 export const InventoryTablePending = ({stocks})=>{
-
+    const [interval,setInterval] = useState<EInterval>(EInterval.day); 
     const [storeCount,setStoreCount] = useState<number>(10);
     const newStocks = stocks.filter(stock=> isToday(stock.date)).slice(0,storeCount);
     const incrementStocks = e => setStoreCount(e.target.value);
