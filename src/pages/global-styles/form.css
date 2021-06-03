@@ -8,12 +8,13 @@
     background-color: whitesmoke;
 
 }
-.input__form input,select{
+.input__form input, .input__form select{
     margin:5px;
     height: 50px;
     width: 100%;
     font-size: 100%;
 }
+
 .input__form input[type=submit]{
     width: 500px;
     height: 50px;

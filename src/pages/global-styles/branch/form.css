@@ -18,9 +18,13 @@
     background-color: rgba(0, 0, 0, 0.1);
     outline: none;
     border: none;
+    display: none;
 }
-.branch_form input[type=submit]{
+.branch_form input[type=submit] {
     align-self: center;
     width: 99%;
    
+}
+.branch_form select{
+    max-width: 98%;
 }
