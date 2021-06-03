@@ -11,14 +11,11 @@ interface IUpdateData{
     location:string
 }
 
-const UpdateForm = ({store:{_id,location,branch},setOpenUpdateForm,openUpdateForm}) => {
+const UpdateForm = ({store:{_id,location,branch,status},setOpenUpdateForm,openUpdateForm}) => {
     const token = useContext(CookieContext);
-    
     const router = useRouter();
     const storeController = new StoreController(router,token);
     const {handleSubmit,register,errors} = useForm();
-    const [newLocation,setLocation] = useState<string>(location);
-    const [newBranch,setBranch] = useState<string>(branch);
     const [state,setState] = useState({
         location,
         branch
@@ -39,18 +36,22 @@ const UpdateForm = ({store:{_id,location,branch},setOpenUpdateForm,openUpdateFor
         }
     })
     return (
-        <Modal isOpen={openUpdateForm} className="modal_form">
+        <Modal isOpen={openUpdateForm} className="modal_form branch_modal">
             <div className="modal_title">
                 <h1>Update Branch</h1>
                 <button onClick={()=>setOpenUpdateForm(!openUpdateForm)}  className="close__button">X</button>
             </div>
             <form className="input__form branch_form" onSubmit={handleSubmit(handleUpdate)}>
-                <label>Id:</label>
                 <input type="text" name="_id" id="_id" value={_id} ref={register({required:true})} readOnly></input>
                 <label>Branch:</label>
                 <input type="text" name="branch" value={state.branch} ref={register({required:true})} onChange={handleOnChange}></input>
                 <label>Location:</label>
                 <input type="text" name="location" value={state.location} ref={register({required:true})} onChange={handleOnChange}></input>
+                <label>Status:</label>
+                <select ref={register({required:true})} name="status" defaultValue={status}>
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                </select>
                 <input type="submit"></input>
             </form>
         </Modal>

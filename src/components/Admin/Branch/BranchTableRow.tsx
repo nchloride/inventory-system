@@ -10,12 +10,13 @@ interface IStore {
     branch:string;
     location:string;
     employeeCount:number;
+    status:string
 }
 
 const BranchTableRow = ({store,handleDelete}) => {
     const token = useContext(CookieContext);
     const router = useRouter();
-    const {_id,branch,location}:IStore = store;
+    const {_id,branch,location,status}:IStore = store;
     const [openUpdateForm,setOpenUpdateForm] = useState<boolean>(false);
     const [employeeCount,setEmployeeCount] = useState<number>();
     const employeeController = new EmployeeController(router,token);
@@ -39,11 +40,17 @@ const BranchTableRow = ({store,handleDelete}) => {
                 <td>{branch}</td>
                 <td>{location}</td>
                 <td>{employeeCount}</td>
+                <td >
+                    <h1 style={{backgroundColor:status==="active"?"#00d924":"#fc9403"}}>
+                        {status[0].toUpperCase() + status.slice(1,status.length)}
+                    </h1>
+                </td>
                 <td>
                     <button onClick={deleteOnClick} className="delete_button" ><DeleteForeverIcon/></button>
                     <button onClick={updateOnClick}  className="edit_button"><EditIcon/></button>
                 </td>
             </tr>
+            
             {openUpdateForm && <UpdateForm store={store}  setOpenUpdateForm ={setOpenUpdateForm} openUpdateForm={openUpdateForm}/>}
     
         </>

@@ -22,6 +22,7 @@ export const BranchTable = ({stores,employees}) =>{
                     <th>Branch</th>
                     <th>Location</th>
                     <th>Employee Count</th>
+                    <th>Status</th>
                     <th></th>
                 </tr>
             </thead>

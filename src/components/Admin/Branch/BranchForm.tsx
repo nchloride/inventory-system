@@ -50,6 +50,11 @@ export const BranchForm  = ({open,setClose})=>{
                 ref={register({required:true})}
                 placeholder="Enter branch location"
                 />
+                <label>Status:</label>
+                <select ref={register({required:true})} name="status">
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                </select>
                 <input type="submit" value="Add store"/>
             </form>
         </Modal>
