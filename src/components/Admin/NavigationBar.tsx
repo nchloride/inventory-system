@@ -10,6 +10,7 @@ import LocalMallIcon from '@material-ui/icons/LocalMall';
 import NoteIcon from '@material-ui/icons/Note';
 import PersonIcon from '@material-ui/icons/Person';
 import StoreIcon from '@material-ui/icons/Store';
+import PostAddIcon from '@material-ui/icons/PostAdd';
 const navLinks = [
     {
         name:"Dashboard",
@@ -30,6 +31,11 @@ const navLinks = [
         name:'Inventory',
         url:"inventory",
         Icon:LocalMallIcon
+    },
+    {
+        name:'Products',
+        url:"products",
+        Icon:PostAddIcon
     },
     {
         name:'Records',
