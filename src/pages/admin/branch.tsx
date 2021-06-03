@@ -14,7 +14,6 @@ import {CookieContext} from "../../utils/context/CookieContext"
 export const BranchService = createContext(null);
 
 export const Branch = ({stores,employees,user}) => {
-    
     const token = useContext(CookieContext);
     const router = useRouter();
     const StoreController = new StoreService(router,token);
@@ -35,7 +34,7 @@ export const Branch = ({stores,employees,user}) => {
         )
 
 }
-export const getServerSideProps = async ({req,res}) =>{
+export const getServerSideProps = async <T extends GetServerSideProps>({req,res}) =>{
     const redirectToLogin = {
         redirect:{
             destination:"/",

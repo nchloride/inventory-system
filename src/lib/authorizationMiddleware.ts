@@ -1,9 +1,7 @@
 const jwt = require("jsonwebtoken");
-export const apiMiddleware = async (req,res,next) =>{
+import {NextApiRequest,NextApiResponse} from "next"
+export const apiMiddleware = async (req:NextApiRequest,res:NextApiResponse,next) =>{
     const authenticationToken = req.headers.authorization.split(" ")[1];
-    
-    
-    
     jwt.verify(authenticationToken,process.env.TOKEN_KEY,(err,decoded)=>
         { 
             if(err){
@@ -17,7 +15,5 @@ export const apiMiddleware = async (req,res,next) =>{
             }
         }
     );
-  
-    
 }
 export default apiMiddleware;

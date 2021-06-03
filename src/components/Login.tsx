@@ -8,9 +8,11 @@ import {useForm} from "react-hook-form";
 const Login = () => {
     const router = useRouter();
     const routesHandler = new RoutesController(router);
-    const [error,setError] = useState<string>("")
+    const [error,setError] = useState<string>("");
+    const [authenticating,setAuthenticating] = useState<boolean>(false);
     const {handleSubmit,register} = useForm(); 
     const authenticateUser = (data) =>{
+        setAuthenticating(true);
         fetch("/api/auth",{
             method:'POST',
             mode:"cors",
@@ -27,10 +29,10 @@ const Login = () => {
                  routesHandler.redirectRoute(data.token);
                 setError("");
             }else{
+                setAuthenticating(false);
                 setError("Incorrect username or password");
             }
         });
-        
     }
 
           
@@ -40,7 +42,14 @@ const Login = () => {
                 <h1>FavBurrito</h1>
                 <input type="text" placeholder="Username" name="username" ref={register({required:true})}></input>
                 <input type="password" placeholder="Password" name="password" ref={register({required:true})}></input>
-                <input type="submit"></input>
+                {authenticating? 
+                    <div className="login_loading">
+                        <div className="dots" style={{order:1}}></div>
+                        <div className="dots" style={{order:2}}></div>
+                        <div className="dots" style={{order:3}}></div>
+                    </div> : 
+                    <input type="submit" value="Log In"/>
+                }
                 <h2><strong>{error}</strong></h2>
             </form>
          
