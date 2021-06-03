@@ -79,9 +79,11 @@ const EmployeeForm = ({stores,openModal,setOpenModal}) => {
                                 )
                             }>
                             <option value="0">---Select a branch---</option>
-                            {stores.map((store)=>(
-                                <option value={store.branch} key={store._id}>{store.branch}</option>
-                            ))}
+                            {stores.map((store)=>{
+                                    if(store.status ==="active")
+                                    return <option value={store.branch} key={store._id}>{store.branch}</option>
+                                }
+                            )}
                         </select>
                     </div>
                     <div>

@@ -11,8 +11,7 @@ const EmployeeTable = ({employees}) => {
 
     const handleDelete = (id:string,name:string)=>{
         if(confirm("Are you sure?")){
-            if(prompt(`Please type ${name} to continue`))
-                employeeHandler.deleteEmployee(id);
+            if(prompt(`Please type ${name} to continue`)) employeeHandler.deleteEmployee(id);
         }
     }
     return (
