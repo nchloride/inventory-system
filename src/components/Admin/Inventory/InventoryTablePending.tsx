@@ -11,14 +11,29 @@ enum EInterval{
 }
 
 export const InventoryTablePending = ({stocks})=>{
-    const [interval,setInterval] = useState<EInterval>(EInterval.day); 
+    const [interval,setInterval] = useState<string>(EInterval.all); 
     const [storeCount,setStoreCount] = useState<number>(10);
-    const newStocks = stocks.filter(stock=> isToday(stock.date)).slice(0,storeCount);
+    const intervalPicker = (denomination,stocks,storeCount) => {
+        const stocksFilter = {
+            all:stocks,
+            day:stocks.filter(stock=> isToday(stock.date)).slice(0,storeCount),
+        }
+        return stocksFilter[denomination]
+    }
+    const intervals = Object.keys(EInterval);
+    const newStocks = intervalPicker(interval,stocks,storeCount);
     const incrementStocks = e => setStoreCount(e.target.value);
 
-    
+    const intervalOnChange = (e) =>{
+        setInterval(e.target.value)
+    }
     return (
         <>
+            <select onChange={intervalOnChange} >
+                {intervals.map((int,id)=>(
+                    <option value={int} key={id}>{int}</option>
+                ))}
+            </select>
             <table>
                 <thead>
                     <tr>
@@ -33,7 +48,6 @@ export const InventoryTablePending = ({stocks})=>{
                 </thead>
                 <tbody>
                     {newStocks?.map(stock=>{
-                        // if(isToday(stock.date))
                             return(
                                 <InventoryTableRow key={stock._id} stock ={stock}/>
                              )
