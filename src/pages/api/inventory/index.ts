@@ -1,6 +1,6 @@
 import apiMiddleware from "../../../lib/authorizationMiddleware";
 import database from "../../../utils/config/database";
-import isToday from "../../../lib/isToday";
+import isToday from "../../../utils/helper/isToday";
 import {NextApiRequest,NextApiResponse} from "next";
 import nextConnect from "next-connect";
 import Cors from 'cors';

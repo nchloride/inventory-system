@@ -14,6 +14,7 @@ export default nc<NextApiRequest,NextApiResponse>()
         employeeDatabase.findOne({username})
             .then(employee=>{
                 bcrypt.compare(password,employee.password,(err,emp)=>{
+                    
                     if(emp){
                         const authenticationToken =  jwt.sign(employee,process.env.TOKEN_KEY);
                         res.setHeader("Set-Cookie",cookie.serialize("token",authenticationToken,{

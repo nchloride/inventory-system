@@ -1,8 +1,7 @@
-
-import isToday from "../../../lib/isToday";
+import intervalFilter from '../../../utils/helper/intervalFilter'
 import {useEffect, useState} from "react"
 import InventoryTableRow from "./InventoryTableRow";
-
+import {IStocks} from "../../../types/inventory";
 enum EInterval{
     all='all',
     day='day',
@@ -10,18 +9,12 @@ enum EInterval{
     month='month'
 }
 
-export const InventoryTablePending = ({stocks})=>{
+export const InventoryTablePending = ({stocks}:{stocks:IStocks[]})=>{
     const [interval,setInterval] = useState<string>(EInterval.all); 
     const [storeCount,setStoreCount] = useState<number>(10);
-    const intervalPicker = (denomination,stocks,storeCount) => {
-        const stocksFilter = {
-            all:stocks,
-            day:stocks.filter(stock=> isToday(stock.date)).slice(0,storeCount),
-        }
-        return stocksFilter[denomination]
-    }
+ 
     const intervals = Object.keys(EInterval);
-    const newStocks = intervalPicker(interval,stocks,storeCount);
+    const newStocks = intervalFilter(interval,stocks,storeCount);
     const incrementStocks = e => setStoreCount(e.target.value);
 
     const intervalOnChange = (e) =>{

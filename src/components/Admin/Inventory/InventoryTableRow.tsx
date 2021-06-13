@@ -29,7 +29,9 @@ export const InventoryTableRow:React.FC<IStock>= ({stock}) =>{
                 <td>{stock.name}</td>
                 <td>{stock.price}</td>
                 <td>{stock.date.slice(0,10)}</td>
-                <td><strong>{!stock.submittedBy? "Pending" : "Approving"}</strong></td>
+                <td>
+                    <h1 style={{backgroundColor:!stock.submittedBy?"blue":"greenyellow"}}>{!stock.submittedBy? "Pending" : "Approving"}</h1>
+                </td>
                 <td>
                     {/* <button onClick={()=>handleDelete(stock._id,stock.name)}  className="delete_button"><DeleteForeverIcon/></button> */}
                     <button className="delete_button"><DeleteForever/></button>

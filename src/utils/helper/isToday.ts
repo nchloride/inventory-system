@@ -8,7 +8,7 @@ function dateToday():string{
     return `${year}-${month}-${day}`;
 }
 
-function isToday (date:string):boolean{
+function isToday (date : string | Date) : boolean {
   //  return dateToday() === (date).toString().slice(0,10);
     return Date().toString().slice(4,15) === new Date(date).toString().slice(4,15);
 

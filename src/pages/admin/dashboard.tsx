@@ -1,7 +1,7 @@
 import axios from 'axios';
 import cookie from "cookie";
 import { GetServerSideProps } from 'next';
-import isToday from "../../lib/isToday"
+import isToday from "../../utils/helper/isToday"
 import Layout from '../../Layout';
 import React, { useEffect,useContext } from 'react';
 const jwt = require("jsonwebtoken");
