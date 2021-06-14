@@ -20,11 +20,13 @@ interface IUpdateProps{
 interface IBranch{
     _id:string,
     location:string,
-    branch:string
+    branch:string,
+    status:string
 }
 export const InventoryUpdateForm:React.FC<IUpdateProps> = ({stock, modalOpen,setModalOpen})=>{
     const [branches,setBranches] = useState<IBranch[]>([]);
     const token = useContext(CookieContext);
+    const [inventory,setInventory] = useState(stock)
     useEffect(()=>{
         (async()=>{
             await fetch("/api/stores",{
@@ -59,19 +61,26 @@ export const InventoryUpdateForm:React.FC<IUpdateProps> = ({stock, modalOpen,set
                         }
                     )}
                 > 
-                    {branches.map(({location,branch,_id}:IBranch)=>(
-                        <option
-                            key={_id}
-                            value={branch}
-                        >
-                            {branch}
-                        </option>
-                    ))}
+                    {branches.map(({location,branch,_id,status}:IBranch)=>
+                        {   
+                            if(status === "active")
+                            {
+                                return(
+                                        <option
+                                            key={_id}
+                                            value={branch}
+                                        >
+                                            {branch}
+                                        </option>
+                                    )
+                            }
+                        }
+                    )}
                 </select>
                 <label>Stocks:</label>
-                <input type="number" name="stocks" placeholder="Stocks" ref={register({required:true})} ></input>
+                <input type="number" name="stocks" value={stock.stocks} placeholder="Stocks" ref={register({required:true})} ></input>
                 <label>Product name:</label>
-                <input type="text" name="name" placeholder="Name" ref={register({required:true})} ></input>
+                <input type="text" name="name" placeholder="Name" value={stock.name} ref={register({required:true})} ></input>
                 <label>Price:</label>
                 <input type="number" name="price" placeholder="Price" ref={register({required:true})} ></input>
                 <input type="submit" value="Assign product"></input>
