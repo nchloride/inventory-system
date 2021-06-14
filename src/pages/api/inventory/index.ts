@@ -32,4 +32,18 @@ export default nextConnect<NextApiRequest,NextApiResponse>()
         const stocks = await inventory.find({});
         res.json(stocks);
     })
+    .patch(async(req,res)=>{
+        try {
+            const {_id} = req.body
+            const updatedStock = await InventoryValidation.validateAsync(req.body);
+            inventory
+                .findOneAndUpdate({_id},{updatedStock})
+                .then((data)=>{
+                    res.json(data)
+                }
+            )
+        } catch (error) {
+            res.json(error);
+        }
+    })
    
