@@ -4,6 +4,7 @@ import { GetServerSideProps } from 'next';
 import isToday from "../../utils/helper/isToday"
 import Layout from '../../Layout';
 import React, { useEffect,useContext } from 'react';
+
 const jwt = require("jsonwebtoken");
 const Dashboard = ({stocks = [],employees=[],stores=[],user}) => {
     const pendingStocks= stocks.filter(stock=> !stock.submittedBy);
@@ -39,6 +40,8 @@ const Dashboard = ({stocks = [],employees=[],stores=[],user}) => {
 }
 export const getServerSideProps = async ({req,res})=>{
     const {token} = cookie.parse(req.headers.cookie||"");
+    const domainUrl = process.env.DOMAIN;
+
     if(token){
         const employee = await jwt.verify(token,process.env.TOKEN_KEY);
         if(employee.role === "admin"){
@@ -59,6 +62,15 @@ export const getServerSideProps = async ({req,res})=>{
                     }
                 )
             ])
+            // const [stocks,employees,stores] = await axios.all(
+            //     ['/api/inventory','api/employees','/api/stores'].map(url=>{
+            //         axios.get(`${domainUrl}${url}`,{
+            //             headers:{
+            //                 "Authorization":`Bearer ${token}`
+            //             }
+            //         })
+            //     })
+            // )
             return{
                 props:{
                     stocks:stocks.data,
@@ -76,6 +88,7 @@ export const getServerSideProps = async ({req,res})=>{
         }
     }
     
- }
+}
+
 
 export default (Dashboard);
