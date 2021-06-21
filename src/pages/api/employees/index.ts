@@ -4,6 +4,7 @@ import {postSchema,updateSchema} from "../../../utils/validations/employeeSchema
 import database from "../../../utils/config/database";
 import EncryptionController from "../../../utils/controllers/EncryptionController";
 import bcrypt from "bcryptjs"
+import apiMiddleware from "../../../lib/authorizationMiddleware";
 // export default async function (req:NextApiRequest,res:NextApiResponse){
 //     res.json({message:"Working!"})
 
@@ -11,9 +12,7 @@ import bcrypt from "bcryptjs"
 
 const employeeDb = database.get("employees")
 export default nc<NextApiRequest,NextApiResponse>()
-    .use((req,res,next)=>{
-        next();
-    })
+    .use(apiMiddleware)
     .post(async(req,res)=>{
         try{
             console.log(req.body);

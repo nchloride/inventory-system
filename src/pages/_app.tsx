@@ -30,9 +30,8 @@ import {createContext, useEffect} from "react";
 
 
 function MyApp({ Component, pageProps, token }) {
- 
-   
    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@500&display=swap" rel="stylesheet"></link>
+   
    return (
       <CookieContext.Provider value ={token}>
          <Component {...pageProps} />
@@ -41,6 +40,7 @@ function MyApp({ Component, pageProps, token }) {
 }
 MyApp.getInitialProps  = async ({ctx}) =>{
    const {token} = Cookie.parse(ctx.req.headers.cookie || "");
+   console.log(process.env.MONGO_URI);
    return{
       token
    }
