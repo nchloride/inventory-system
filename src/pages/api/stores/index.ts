@@ -1,7 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import apiMiddleware from "../../../lib/authorizationMiddleware";
 import db from "../../../utils/config/database";
-import storeSchema from "../../../utils/validations/storesAuth";
+import storeSchema from "../../../utils/schema/storesSchema";
 import next, {NextApiRequest,NextApiResponse} from "next";
 import nextConnect from "next-connect";
 const jwt = require('jsonwebtoken');

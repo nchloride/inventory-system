@@ -12,7 +12,7 @@ import apiMiddleware from "../../../lib/authorizationMiddleware";
 
 const employeeDb = database.get("employees")
 export default nc<NextApiRequest,NextApiResponse>()
-    .use(apiMiddleware)
+    // .use(apiMiddleware)
     .post(async(req,res)=>{
         try{
             console.log(req.body);

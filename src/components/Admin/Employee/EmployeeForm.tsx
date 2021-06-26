@@ -3,7 +3,6 @@ import React, { useEffect, useState,useContext } from 'react';
 import {useForm} from "react-hook-form";
 import {EmployeeService} from "../../../pages/admin/employees"
 
-
 const EmployeeForm = ({stores,openModal,setOpenModal}) => {
     const employeeController = useContext(EmployeeService);
     const {errors,handleSubmit,register,reset} = useForm();

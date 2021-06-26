@@ -26,11 +26,15 @@ import "./global-styles/modal.css"
 import Cookie from "cookie";
 import {CookieContext} from "../utils/context/CookieContext";
 import {createContext, useEffect} from "react";
+import { useState } from 'react';
+
+import EmployeeForm from '../components/Admin/Employee/EmployeeForm';
 
 
 
 function MyApp({ Component, pageProps, token }) {
    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@500&display=swap" rel="stylesheet"></link>
+
    
    return (
       <CookieContext.Provider value ={token}>
@@ -40,7 +44,7 @@ function MyApp({ Component, pageProps, token }) {
 }
 MyApp.getInitialProps  = async ({ctx}) =>{
    const {token} = Cookie.parse(ctx.req.headers.cookie || "");
-   console.log(process.env.MONGO_URI);
+   
    return{
       token
    }
