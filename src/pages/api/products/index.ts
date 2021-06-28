@@ -1,7 +1,7 @@
 import nextConnect from "next-connect";
 import apiMiddleware from "../../../lib/authorizationMiddleware";
 import database from "../../../utils/config/database";
-import {NextApiRequest,NextApiResponse} from "next"
+import {NextApiRequest,NextApiResponse} from "next";
 import productSchema from "../../../utils/schema/productSchema";
 
 const products = database.get("products");
@@ -16,15 +16,29 @@ export default nextConnect<NextApiRequest,NextApiResponse>()
         }
     })
     .post(async (req,res)=>{
+        req.body.date = new Date();
+        const productName = req.body.name;
         try {
-            const validatedProduct = await productSchema.validateAsync(req.body);
-            products.insert(validatedProduct)
-                .then(result=>{res.json({
-                    result,
-                    success:true
-                })}) 
+            const isExisting = await products.findOne({name:productName});
+            if(isExisting === null){
+                const validatedProduct = await productSchema.validateAsync(req.body);
+                products.insert(validatedProduct)
+                    .then(result=>{
+                        res.json({
+                            result,
+                            success:true
+                    
+                        }
+                    )});
+            }
+            res.json({
+                error:"product already exists",
+                sucess:false
+            })
+            
         } catch (error) {
             res.json({
+                error,
                 success:false
             })
         }
