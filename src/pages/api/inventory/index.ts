@@ -4,7 +4,7 @@ import isToday from "../../../utils/helper/isToday";
 import {NextApiRequest,NextApiResponse} from "next";
 import nextConnect from "next-connect";
 import Cors from 'cors';
-const InventoryValidation = require("../../../utils/validations/inventoryAuth");
+const InventoryValidation = require("../../../utils/schema/inventorySchema");
 const inventory = database.get("inventory");
 
 
@@ -15,7 +15,7 @@ const inventory = database.get("inventory");
 export default nextConnect<NextApiRequest,NextApiResponse>()
     .use(apiMiddleware)
     .post(async(req,res)=>{
-       const inventoryInformation = {...req.body,date:new Date()}   
+       const inventoryInformation = {...req.body,date:new Date()};  
         try {
             const validatedData = await InventoryValidation.validateAsync(inventoryInformation);
             inventory.insert(validatedData);

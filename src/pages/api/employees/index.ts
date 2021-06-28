@@ -1,6 +1,6 @@
 import {NextApiRequest,NextApiResponse} from "next";
 import nc from "next-connect"
-import {postSchema,updateSchema} from "../../../utils/validations/employeeSchema";
+import {postSchema,updateSchema} from "../../../utils/schema/employeeSchema";
 import database from "../../../utils/config/database";
 import EncryptionController from "../../../utils/controllers/EncryptionController";
 import bcrypt from "bcryptjs"
