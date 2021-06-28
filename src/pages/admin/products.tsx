@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken")
 import Layout from '../../Layout';
 import React from "react";
 import ProductTable from "../../components/Admin/Products/ProductTable"
+import ProductForm from "../../components/Admin/Products/ProductForm";
 
 interface IUser{
     user:{
@@ -15,6 +16,7 @@ const Products:React.FC<IUser> = ({user}) =>{
         <Layout user={user}>
             <h1>Products</h1>
             <ProductTable/>
+            <ProductForm/>
         </Layout>
     )
 }
