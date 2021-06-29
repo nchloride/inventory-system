@@ -22,7 +22,7 @@ export default nextConnect<NextApiRequest,NextApiResponse>()
             const isExisting = await products.findOne({name:productName});
             if(isExisting === null){
                 const validatedProduct = await productSchema.validateAsync(req.body);
-                products.insert(validatedProduct)
+                return products.insert(validatedProduct)
                     .then(result=>{
                         res.json({
                             result,
@@ -35,6 +35,7 @@ export default nextConnect<NextApiRequest,NextApiResponse>()
                 error:"product already exists",
                 sucess:false
             })
+            
             
         } catch (error) {
             res.json({
