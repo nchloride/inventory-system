@@ -5,19 +5,19 @@ import EmployeeTable from "../../components/Admin/Employee/EmployeeTable";
 import Layout from "../../Layout";
 import { useState,useContext,createContext } from "react";
 import {CookieContext} from "../../utils/context/CookieContext";
-import EmployeeController from "../../utils/controllers/EmployeeController";
+import EmployeeService from "../../utils/service/EmployeeService";
 import { useRouter } from 'next/router';
 import cookie from "cookie"
 const jwt = require("jsonwebtoken");
 
-export const EmployeeService = createContext(null);
+export const EmployeeContext = createContext(null);
 export default function Employees({employees,stores,user}){
     const [openModal,setOpenModal] = useState<boolean>(false);
     const router = useRouter()
     const token = useContext(CookieContext);
-    const employeeController = new EmployeeController(router,token);
+    const employeeController = new EmployeeService(router,token);
     return(
-        <EmployeeService.Provider value = {employeeController}>
+        <EmployeeContext.Provider value = {employeeController}>
             <Layout user={user}>
                 <div className="tab employees">
                     <div className="tab_title">
@@ -28,7 +28,7 @@ export default function Employees({employees,stores,user}){
                     <EmployeeForm stores={stores} openModal={openModal} setOpenModal={setOpenModal} />
                 </div>
             </Layout>
-        </EmployeeService.Provider>
+        </EmployeeContext.Provider>
     )
 }
 export async function getServerSideProps({req,res}){

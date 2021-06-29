@@ -9,7 +9,7 @@ enum EMethods{
     patch= 'PATCH'
 }
 
-class Stores{
+class BranchService{
     private storeAPIEndpoint:string ='/api/stores/';
     private routeHandler;
     private tokenHandler;
@@ -48,4 +48,4 @@ class Stores{
         return await this.fetchData(data,this.storeAPIEndpoint,EMethods.post)
     }
 }
-export default Stores;
+export default BranchService;

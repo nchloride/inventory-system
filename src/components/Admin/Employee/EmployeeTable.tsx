@@ -1,12 +1,12 @@
 import { useRouter } from 'next/router';
 import React, { useState,useEffect,useContext } from 'react'
-import EmployeeController from '../../../utils/controllers/EmployeeController';
+import EmployeeController from '../../../utils/service/EmployeeService';
 import EmployeeTableRow from './EmployeeTableRow';
-import {EmployeeService} from "../../../pages/admin/employees"
+import {EmployeeContext} from "../../../pages/admin/employees"
 
 
 const EmployeeTable = ({employees}) => {
-    const employeeHandler = useContext(EmployeeService);
+    const employeeHandler = useContext(EmployeeContext);
     const router = useRouter()
 
     const handleDelete = (id:string,name:string)=>{

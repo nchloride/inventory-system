@@ -2,7 +2,7 @@ import React,{useContext,useEffect,useState} from "react";
 import Modal from "react-modal";
 import {useForm} from "react-hook-form";
 import {CookieContext} from "../../../utils/context/CookieContext"
-import {EmployeeService} from "../../../pages/admin/employees"
+import {EmployeeContext} from "../../../pages/admin/employees"
 interface IEmployeeModal{
     isOpen:boolean;
     setIsOpen: (state:boolean)=>void;
@@ -11,7 +11,7 @@ interface IEmployeeModal{
 
 Modal.setAppElement("body");
 export const EmployeeUpdateForm:React.FC<IEmployeeModal> = ({isOpen,setIsOpen,employee}) =>{
-    const employeeController = useContext(EmployeeService);
+    const employeeController = useContext(EmployeeContext);
     const {errors,handleSubmit,register,reset} = useForm();
     const {name,username,address,_id,rate,branch,password} = employee;
     const [stores,setStores] = useState([]);

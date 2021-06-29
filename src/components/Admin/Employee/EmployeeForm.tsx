@@ -1,10 +1,10 @@
 import Modal from "react-modal";
 import React, { useEffect, useState,useContext } from 'react';
 import {useForm} from "react-hook-form";
-import {EmployeeService} from "../../../pages/admin/employees"
+import {EmployeeContext} from "../../../pages/admin/employees"
 
 const EmployeeForm = ({stores,openModal,setOpenModal}) => {
-    const employeeController = useContext(EmployeeService);
+    const employeeController = useContext(EmployeeContext);
     const {errors,handleSubmit,register,reset} = useForm();
     const [inputError,setInputError] = useState({
         alreadyExist:false,

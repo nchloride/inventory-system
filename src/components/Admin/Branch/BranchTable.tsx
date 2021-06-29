@@ -1,16 +1,15 @@
 import { useRouter } from "next/router";
 import {useEffect, useContext} from "react";
-import StoreController from "../../../utils/controllers/StoreController";
+import {BranchContext} from "../../../pages/admin/branch";
 import BranchTableRow from "./BranchTableRow";
-import {CookieContext} from "../../../utils/context/CookieContext"
 export const BranchTable = ({stores,employees}) =>{
     const router = useRouter();
-    const token = useContext(CookieContext);
-    const storeController = new StoreController(router,token);
+    const branchService = useContext(BranchContext);
+    
     const handleDelete = (_id,branch:string):void =>{
         if(confirm("Are you sure you want to delete this branch?"))
             if(prompt(`Type "${branch}" to delete this store`) === branch)
-                storeController.deleteStore(_id).then((data):void=>{
+                branchService.deleteStore(_id).then((data):void=>{
                     alert(data.message);
                 });
     }

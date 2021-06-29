@@ -2,7 +2,7 @@ import {NextApiRequest,NextApiResponse} from "next";
 import nc from "next-connect"
 import {postSchema,updateSchema} from "../../../utils/schema/employeeSchema";
 import database from "../../../utils/config/database";
-import EncryptionController from "../../../utils/controllers/EncryptionController";
+import EncryptionController from "../../../utils/service/EncryptionController";
 import bcrypt from "bcryptjs"
 import apiMiddleware from "../../../lib/authorizationMiddleware";
 // export default async function (req:NextApiRequest,res:NextApiResponse){

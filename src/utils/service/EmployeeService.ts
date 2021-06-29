@@ -10,7 +10,7 @@ interface IUpdateData{
     rate:number
 
 }
-export  class EmployeeController{
+export  class EmployeeService{
     private employeeEndpoint = "/api/employees/";
     private routeHandler;
     private token;
@@ -50,4 +50,4 @@ export  class EmployeeController{
     }
 
 } 
-export default EmployeeController;
+export default EmployeeService;

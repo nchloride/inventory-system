@@ -1,13 +1,13 @@
-import InventoryController from "../../../utils/controllers/InventoryController";
+import InventoryController from "../../../utils/service/InventoryService";
 import Modal from "react-modal";
 import {useState,useContext} from "react";
 import {useForm} from "react-hook-form"
 
-import {InventoryService} from "../../../pages/admin/inventory"
+import {InventoryContext} from "../../../pages/admin/inventory";
 
 export default function InventoryForm({branches,modalOpen,setModalOpen}){
     const {handleSubmit,register,reset} = useForm();
-    const inventory = useContext(InventoryService);
+    const inventory = useContext(InventoryContext);
     const onFormSubmit = async(data:any) =>{
         inventory.setStocks(data)
             .then(data=>{

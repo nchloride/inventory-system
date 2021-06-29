@@ -1,6 +1,7 @@
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-import EmployeeController from '../../../utils/controllers/EmployeeController';
+import EmployeeService from '../../../utils/service/EmployeeService';
 import EditIcon from '@material-ui/icons/Edit';
+import {BranchContext} from "../../../pages/admin/branch"
 import React, { useState,useEffect, useContext } from 'react';
 import UpdateForm from './UpdateForm';
 import { useRouter } from 'next/router';
@@ -19,7 +20,7 @@ const BranchTableRow = ({store,handleDelete}) => {
     const {_id,branch,location,status}:IStore = store;
     const [openUpdateForm,setOpenUpdateForm] = useState<boolean>(false);
     const [employeeCount,setEmployeeCount] = useState<number>();
-    const employeeController = new EmployeeController(router,token);
+    const employeeService = new EmployeeService(router,token);
     const deleteOnClick = () =>{
         handleDelete(store._id,store.branch);
     }
@@ -28,7 +29,7 @@ const BranchTableRow = ({store,handleDelete}) => {
     }
     useEffect(() => {
         (()=>{
-            employeeController.getEmployees().then(data=>{
+            employeeService.getEmployees().then(data=>{
                 const storeEmployeeCount = data.filter(employee=> employee.branch === store.branch).length;
                 setEmployeeCount(storeEmployeeCount);
             })

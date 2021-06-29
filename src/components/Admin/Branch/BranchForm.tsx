@@ -4,11 +4,11 @@ import React,{useContext, useEffect} from "react";
 
 import {useForm} from "react-hook-form";
 
-import {BranchService} from "../../../pages/admin/branch"
+import {BranchContext} from "../../../pages/admin/branch"
 Modal.setAppElement("body");
 
 export const BranchForm  = ({open,setClose})=>{
-    const StoreController = useContext(BranchService);
+    const branchService = useContext(BranchContext);
     const {handleSubmit,register,reset} = useForm<FormData>();
     
     interface IData {
@@ -21,7 +21,7 @@ export const BranchForm  = ({open,setClose})=>{
 
     const onSubmit = async (data:IData) =>{
         try{
-            StoreController.addStore(data).then(_=>{
+            branchService.addStore(data).then(_=>{
                 reset();
                 closeModal();
             })

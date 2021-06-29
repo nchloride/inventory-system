@@ -8,15 +8,15 @@ import React, {useState,createContext,useContext} from "react";
 import { useRefreshTable } from "../../components/customHooks/useRefreshTable";
 import cookie from "cookie";
 const jwt = require('jsonwebtoken');
-import StoreService from "../../utils/controllers/StoreController";
+import BranchService from "../../utils/service/BranchService";
 import { useRouter } from 'next/router';
 import {CookieContext} from "../../utils/context/CookieContext"
-export const BranchService = createContext(null);
+export const BranchContext = createContext(null);
 
 export const Branch = ({stores,employees,user}) => {
     const token = useContext(CookieContext);
     const router = useRouter();
-    const StoreController = new StoreService(router,token);
+    const StoreController = new BranchService(router,token);
     const [openAddForm,setOpenAddForm] = useState<boolean>(false);
     return (
             <Layout user={user}>
@@ -25,10 +25,10 @@ export const Branch = ({stores,employees,user}) => {
                         <h1>Branch Page</h1>
                         <button onClick={()=>setOpenAddForm(true)} className="add_data"><AddIcon/>Add Branch</button>
                     </div>
-                    <BranchService.Provider value={StoreController}>
+                    <BranchContext.Provider value={StoreController}>
                         <BranchTable stores={stores} employees={employees}/> 
                         {openAddForm && <BranchForm open={openAddForm} setClose={setOpenAddForm}/>}
-                    </BranchService.Provider>
+                    </BranchContext.Provider>
                 </div>
             </Layout>
         )

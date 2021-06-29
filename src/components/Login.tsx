@@ -1,7 +1,7 @@
 
 import {useRouter} from "next/router";
 import React, { useEffect, useRef,useState } from 'react';
-import RoutesController from '../utils/controllers/RoutesController';
+import RoutesController from '../utils/service/RoutesController';
 import {useForm} from "react-hook-form";
 
 

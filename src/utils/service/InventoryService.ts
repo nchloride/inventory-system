@@ -9,7 +9,7 @@ enum EMethods{
     delete = 'DELETE',
     patch= 'PATCH'
 }
-export default  class InventoryController{
+export default  class InventoryService{
     private apiEndpoint:string = '/api/inventory';
     private routesController;
     private token

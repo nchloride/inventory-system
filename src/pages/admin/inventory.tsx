@@ -8,18 +8,20 @@ import Layout from '../../Layout';
 import {useRouter} from "next/router"
 
 import React,{useState,createContext,useContext} from 'react';
-import InventoryController from "../../utils/controllers/InventoryController";
+import InventoryService from "../../utils/service/InventoryService";
 
 const jwt = require("jsonwebtoken");
-export const InventoryService = createContext(null);
+
+
+export const InventoryContext = createContext(null);
 
 function Inventory({stores,stocks,user})  {
     const [openAddForm,setOpenAddForm] = useState<boolean>(false);
     const token = useContext(CookieContext);
     const router = useRouter();
-    const inventoryController = new InventoryController(router,token);
+    const inventoryController = new InventoryService(router,token);
     return (
-        <InventoryService.Provider value={inventoryController}>
+        <InventoryContext.Provider value={inventoryController}>
             <Layout user={user}>
                 <div className="tab inventory">
                     <div className="tab_title">
@@ -30,7 +32,7 @@ function Inventory({stores,stocks,user})  {
                     <InventoryForm modalOpen={openAddForm} setModalOpen={setOpenAddForm} branches={stores}/>
                 </div>
             </Layout> 
-        </InventoryService.Provider>
+        </InventoryContext.Provider>
     )
 }
 export async function getServerSideProps({req,res}){

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from 'react';
-import TokenController from '../../utils/controllers/TokenController';
+import TokenController from '../../utils/service/TokenController';
 import {useRouter} from "next/router";
 //ICONS
 import DashboardIcon from '@material-ui/icons/Dashboard';
