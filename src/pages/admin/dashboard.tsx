@@ -17,19 +17,19 @@ const Dashboard = ({stocks = [],employees=[],stores=[],user}) => {
             <div className="tab dashboard">
                 <h1>Dashboard</h1>
                 <div className="dashboard_status_cards">
-                    <section className="pending card">
+                    <section className="card">
                         <h1>Total Employees</h1>
                         <p>{employeeCount}</p>
                     </section>
-                    <section className="pending card">
+                    <section className="card">
                         <h1>Total Stores</h1>
                         <p>{storesCount}</p>
                     </section>
-                    <section className="pending card">
+                    <section className="card">
                         <h1>Overall Pending Inventory</h1>
                         <p>{pendingStocks.length}</p>
                     </section>
-                    <section className="pending card">
+                    <section className="card">
                         <h1>Today's Pending Inventory</h1>
                         <p>{pendingStocksToday.length}</p>
                     </section>

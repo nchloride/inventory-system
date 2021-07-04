@@ -16,11 +16,14 @@ import "./global-styles/employees/form.css";
 import "./global-styles/inventory/index.css";
 import "./global-styles/inventory/form.css";
 //Dashboard Styles
-import "./global-styles/dashboard/dashboard.css"
+import "./global-styles/dashboard/dashboard.css";
+//Product
+import "./global-styles/products/form.css";
+import "./global-styles/products/index.css";
 //Login Form 
-import "./global-styles/login.css"
+import "./global-styles/login.css";
 //Modal
-import "./global-styles/modal.css"
+import "./global-styles/modal.css";
 
 
 import Cookie from "cookie";

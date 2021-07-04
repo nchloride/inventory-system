@@ -1,4 +1,3 @@
-import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteForever from '@material-ui/icons/DeleteForever';
 import Check from '@material-ui/icons/Check';
