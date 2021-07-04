@@ -1,0 +1,9 @@
+.product-form{
+    height: 50%;
+    width:90%;
+    align-items: flex-start;
+    background-color: rgb(238, 238, 238);
+    margin-bottom: 5%;
+    padding: 1%;
+}
+
