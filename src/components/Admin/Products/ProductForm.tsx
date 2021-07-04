@@ -5,11 +5,18 @@ import { useEffect } from "react";
 
 const ProductForm:FC = (props) =>{
     const token = useContext(CookieContext);
-    const {handleSubmit,register,errors} = useForm();
+    const {handleSubmit,register,errors,reset} = useForm();
 
 
- 
-
+    const postResultHandler = (result) =>{
+        if(result.success){
+            alert("Product added!");
+            reset();
+        }
+        else{
+            alert(result.error);
+        }
+    }
     const handleFormSubmit = async(data) =>{
         console.log(data);
         const postProduct = await fetch("/api/products",{
@@ -22,28 +29,31 @@ const ProductForm:FC = (props) =>{
             }
         });
         const result = await postProduct.json();
-        console.log(result);
+        postResultHandler(result);
         
       
     } 
     return(
-        <form onSubmit={handleSubmit(handleFormSubmit)} className="input__form">
+        <form onSubmit={handleSubmit(handleFormSubmit)} className="input__form product-form">
+            <label>Name</label>
             <input 
                 name="name"
                 type="text"
                 ref={register({required:true})}
             />
+            <label>Price</label>
             <input 
                 name="price" 
                 type="number"
                 ref={register({required:true})}
             />
+            <label>Stocks</label>
             <input 
                 name="stocks"
                 type="number"
                 ref={register({required:true})}
             />
-            <input type="submit"  />
+            <input type="submit"/>
         </form>
     )
 }
