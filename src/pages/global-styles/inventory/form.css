@@ -7,3 +7,15 @@
 .inventory_form>input[type=submit]{
     width: 100%;
 }   
+.inventory_form>.selected__product {
+    width: 100%;
+    transition: 1s ease-in ;
+    font-size: 1.5rem;
+    display: flex;
+    align-self: flex-start;
+    justify-content: space-around;
+    background-color: rgb(223, 223, 223);
+}
+.inventory_form .selected__product__card label{
+    font-size: 1.5rem;
+}
