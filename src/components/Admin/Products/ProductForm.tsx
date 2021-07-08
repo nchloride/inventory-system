@@ -1,10 +1,10 @@
 import {FC,useContext} from "react";
-import { CookieContext } from "../../../utils/context/CookieContext";
 import {useForm} from "react-hook-form";
 import { useEffect } from "react";
+import {ProductContext} from "../../../pages/admin/products";
 
-const ProductForm:FC = (props) =>{
-    const token = useContext(CookieContext);
+const ProductForm:FC = () =>{
+    const productService = useContext(ProductContext);
     const {handleSubmit,register,errors,reset} = useForm();
 
 
@@ -18,20 +18,8 @@ const ProductForm:FC = (props) =>{
         }
     }
     const handleFormSubmit = async(data) =>{
-        console.log(data);
-        const postProduct = await fetch("/api/products",{
-            method:"POST",
-            mode:"cors",
-            body:JSON.stringify(data),
-            headers:{
-                "Content-type":"application/json",
-                "Authorization":`Bearer ${token}`,
-            }
-        });
-        const result = await postProduct.json();
+        const result = await productService.addProduct(data);
         postResultHandler(result);
-        
-      
     } 
     return(
         <form onSubmit={handleSubmit(handleFormSubmit)} className="input__form product-form">
