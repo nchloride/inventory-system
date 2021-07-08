@@ -15,7 +15,7 @@ const jwt = require("jsonwebtoken");
 
 export const InventoryContext = createContext(null);
 
-function Inventory({stores,stocks,user})  {
+function Inventory({stores,stocks,user,products})  {
     const [openAddForm,setOpenAddForm] = useState<boolean>(false);
     const token = useContext(CookieContext);
     const router = useRouter();
@@ -29,7 +29,7 @@ function Inventory({stores,stocks,user})  {
                         <button onClick={()=>setOpenAddForm(!openAddForm)} className="add_data"><AddIcon/>Add Inventory</button>
                     </div>
                     <InventoryTablePending stocks={stocks}/>
-                    <InventoryForm modalOpen={openAddForm} setModalOpen={setOpenAddForm} branches={stores}/>
+                    <InventoryForm modalOpen={openAddForm} setModalOpen={setOpenAddForm} products={products} branches={stores}/>
                 </div>
             </Layout> 
         </InventoryContext.Provider>
@@ -41,7 +41,7 @@ export async function getServerSideProps({req,res}){
     {
         const {role,...user} = jwt.verify(token,process.env.TOKEN_KEY);
         try{
-            const [stores,stocks] = await axios.all(
+            const [stores,stocks,products] = await axios.all(
             [
                 axios.get('http://localhost:3000/api/stores',
                         {
@@ -52,13 +52,19 @@ export async function getServerSideProps({req,res}){
                         {
                             headers:{"authorization":`Bearer ${token}`}
                         }
-                    )
+                    ),
+                axios.get('http://localhost:3000/api/products',
+                    {
+                        headers:{"authorization":`Bearer ${token}`}
+                    }
+                )
             ]);
         return{
             props:{
                stores:stores.data,
                stocks:stocks.data,
-               user
+               user,
+               products:products.data
             }
         }
         }catch(error){
