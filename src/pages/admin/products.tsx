@@ -2,9 +2,12 @@ import axios from "axios";
 import cookie from "cookie"
 const jwt = require("jsonwebtoken")
 import Layout from '../../Layout';
-import React from "react";
+import React,{createContext,useContext} from "react";
+import {useRouter} from "next/router";
+import {CookieContext} from "../../utils/context/CookieContext";
 import ProductTable from "../../components/Admin/Products/ProductTable"
 import ProductForm from "../../components/Admin/Products/ProductForm";
+import ProductsService from "../../utils/service/ProductsService";
 
 type ProductsType = {
     name:string,
@@ -17,17 +20,24 @@ interface IUser{
     }
     products:ProductsType[]
 }
+export const ProductContext = createContext(null);
+
 const Products:React.FC<IUser> = ({user,products}) =>{
+    const token = useContext(CookieContext);
+    const router = useRouter();
+    const productService = new ProductsService(router,token);
     return(
-        <Layout user={user}>
-            <div className="tab products">
-                <div className="tab_title">
-                    <h1 >Products</h1>
+        <ProductContext.Provider value={productService}>
+            <Layout user={user}>
+                <div className="tab products">
+                    <div className="tab_title">
+                        <h1 >Products</h1>
+                    </div>
+                    <ProductForm/>
+                    <ProductTable products={products}/>
                 </div>
-                <ProductForm/>
-                <ProductTable products={products}/>
-            </div>
-        </Layout>
+            </Layout>
+        </ProductContext.Provider>
     )
 }
 
