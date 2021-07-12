@@ -14,4 +14,8 @@ function isToday (date : string | Date) : boolean {
 
 }
 
+export function thisMonth(date:string){
+  return new Date().getMonth() === new Date(date).getMonth();
+}
+
 export default isToday;
